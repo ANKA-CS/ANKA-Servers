@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+	<server name="generic">
+		<management>
+			<name>A:${host}</name>
+		</management>
+		<group name="Java Error Check" path="A:GL:ProcessCheck:">
+			<record>
+				<name>${host}-01:JavaErrorCheck</name>
+				<type>DBR_BYTE</type>
+				<alarmConf>
+					<path>Network,Processes</path>
+					<description>Java Error is on ${host}!</description>
+					<latching>true</latching>
+				</alarmConf>
+				<processor instance="com.kriznar.csshell.epics.server.processor.SystemProcessWatchdogProcessor">
+					<trigger>10000</trigger>
+					<valueHit>
+						<severity>MAJOR_ALARM</severity>
+						<status>STATE_ALARM</status>
+					</valueHit>
+					<valueMiss>
+						<severity>NO_ALARM</severity>
+						<status>NO_ALARM</status>
+					</valueMiss>
+					<processPattern>dwwin.exe</processPattern>
+					<gate><link>A:SR:OperationStatus:01:Mode</link><mask>0b111111</mask></gate>
+				</processor>
+			</record>
+		</group>
+	</server>
+	<server name="acc-pc-lw19">
+		<management>
+			<name>A:${host}</name>
+		</management>
+		<group name="Java Error Check" path="A:GL:ProcessCheck:">
+			<record>
+				<name>${host}-01:JavaErrorCheck</name>
+				<type>DBR_BYTE</type>
+				<alarmConf>
+					<path>Network,Processes</path>
+					<description>Java Error is on ${host}!</description>
+					<latching>true</latching>
+				</alarmConf>
+				<processor instance="com.kriznar.csshell.epics.server.processor.SystemProcessWatchdogProcessor">
+					<trigger>10000</trigger>
+					<valueHit>
+						<severity>MAJOR_ALARM</severity>
+						<status>STATE_ALARM</status>
+					</valueHit>
+					<valueMiss>
+						<severity>NO_ALARM</severity>
+						<status>NO_ALARM</status>
+					</valueMiss>
+					<processPattern>dwwin.exe</processPattern>
+					<gate><link>A:SR:OperationStatus:01:Mode</link><mask>0b111111</mask></gate>
+				</processor>
+			</record>
+		</group>
+	</server>
+	<server name="acc-pc-lw31">
+		<management>
+			<name>A:${host}</name>
+		</management>
+		<group name="Java Error Check" path="A:GL:ProcessCheck:">
+			<record>
+				<name>${host}-01:JavaErrorCheck</name>
+				<type>DBR_BYTE</type>
+				<alarmConf>
+					<path>Network,Processes</path>
+					<description>Java Error is on ${host}!</description>
+					<latching>true</latching>
+				</alarmConf>
+				<processor instance="com.kriznar.csshell.epics.server.processor.SystemProcessWatchdogProcessor">
+					<trigger>10000</trigger>
+					<valueHit>
+						<severity>MAJOR_ALARM</severity>
+						<status>STATE_ALARM</status>
+					</valueHit>
+					<valueMiss>
+						<severity>NO_ALARM</severity>
+						<status>NO_ALARM</status>
+					</valueMiss>
+					<processPattern>dwwin.exe</processPattern>
+					<gate><link>A:SR:OperationStatus:01:Mode</link><mask>0b111111</mask></gate>
+				</processor>
+			</record>
+		</group>
+	</server>
+</config>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+
+	<server name="Apps">
+	
+		<management>
+			<name>A:${host}:${server}</name>
+		</management>
+
+
+		<group name="Chart" path="A:TEST:PS:BR-">
+			<substitutions><setget>:Current:Setpoint:Get</setget></substitutions>
+			<group name="plot" template="true">
+				<record>
+					<name>${index}${setget}:Plot1s</name>
+					<type>DBR_DOUBLE</type>
+					<units>A</units>
+					<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+						<trigger>1000</trigger>
+						<input>
+							<link>${path}${index}${setget}</link>
+						</input>
+					</processor>
+				</record>
+			</group>
+			<group><substitutions><index>01</index></substitutions><insert>plot</insert></group>
+			<group><substitutions><index>02</index></substitutions><insert>plot</insert></group>
+			<group><substitutions><index>03</index></substitutions><insert>plot</insert></group>
+			<group><substitutions><index>04</index></substitutions><insert>plot</insert></group>
+		</group>
+		<group name="Chart Wig" path="A:TEST:WigglerRamp:">
+			<substitutions><read>:Field:Readback</read></substitutions>
+			<group name="plotWig1s" template="true">
+				<record>
+					<name>${index}${read}:Plot1s</name>
+					<type>DBR_DOUBLE</type>
+					<units>T</units>
+					<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+						<trigger>1000</trigger>
+						<input>
+							<link>${path}${index}${read}</link>
+						</input>
+						<filter>AVG</filter>
+					</processor>
+				</record>
+			</group>
+			<group name="plotWig60s" template="true">
+				<record>
+					<name>${index}${read}:Plot60s</name>
+					<type>DBR_DOUBLE</type>
+					<units>T</units>
+					<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+						<trigger>60000</trigger>
+						<input>
+							<link>${path}${index}${read}</link>
+						</input>
+						<filter>AVG</filter>
+					</processor>
+				</record>
+			</group>
+			<group><substitutions><index>01</index></substitutions><insert>plotWig1s</insert></group>
+			<group><substitutions><index>01</index></substitutions><insert>plotWig60s</insert></group>
+		</group>
+		
+		<application instance="com.kriznar.csshell.epics.server.application.WigglerRampApplication">
+			<name>A:TEST:WigglerRamp:01</name>
+			
+			<setpoints>A:TEST:PS:BR-01:Current:Setpoint,A:TEST:PS:BR-02:Current:Setpoint,A:TEST:PS:BR-03:Current:Setpoint,A:TEST:PS:BR-04:Current:Setpoint</setpoints>
+			<setpointsGet>A:TEST:PS:BR-01:Current:Setpoint:Get,A:TEST:PS:BR-02:Current:Setpoint:Get,A:TEST:PS:BR-03:Current:Setpoint:Get,A:TEST:PS:BR-04:Current:Setpoint:Get</setpointsGet>
+			<readbacks>A:TEST:PS:BR-01:Current:Readback,A:TEST:PS:BR-02:Current:Readback,A:TEST:PS:BR-03:Current:Readback,A:TEST:PS:BR-04:Current:Readback</readbacks>
+			<rates>A:TEST:PS:BR-01:Current:Setpoint:Ramp,A:TEST:PS:BR-02:Current:Setpoint:Ramp,A:TEST:PS:BR-03:Current:Setpoint:Ramp,A:TEST:PS:BR-04:Current:Setpoint:Ramp</rates>
+			<ratesGet>A:TEST:PS:BR-01:Current:Setpoint:Ramp:Get,A:TEST:PS:BR-02:Current:Setpoint:Ramp:Get,A:TEST:PS:BR-03:Current:Setpoint:Ramp:Get,A:TEST:PS:BR-04:Current:Setpoint:Ramp:Get</ratesGet>
+			
+			<table>
+				<file>field-resonanse.dat</file>
+			</table>
+			
+		</application>
+		
+	</server>
+	
+	
+	<server name="alarms_test">
+	
+		<management>
+			<name>A:${host}:${server}</name>
+		</management>
+		
+	</server>
+
+</config>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+
+	<server name="Apps">
+	
+		<management>
+			<name>A:${host}:${server}</name>
+		</management>
+
+
+		<group name="PC Cycling" path="A:GL:PSCycle:">
+			
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>IB-01</name>
+				<device>A:IL:PS:MB-01</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>MB-11</name>
+				<device>A:MI:PS:MB-11</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EB-01</name>
+				<device>A:EL:PS:MB-01</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EB-02</name>
+				<device>A:EL:PS:MB-02</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-01</name>
+				<device>A:EL:PS:MQ-01</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-02</name>
+				<device>A:EL:PS:MQ-02</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-03</name>
+				<device>A:EL:PS:MQ-03</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-04</name>
+				<device>A:EL:PS:MQ-04</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-05</name>
+				<device>A:EL:PS:MQ-05</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-06</name>
+				<device>A:EL:PS:MQ-06</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-07</name>
+				<device>A:EL:PS:MQ-07</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-08</name>
+				<device>A:EL:PS:MQ-08</device>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+				<name>EQ-09</name>
+				<device>A:EL:PS:MQ-01</device>
+			</application>
+
+		</group>
+		
+		<group name="Wiggler Feedback Loop" path="A:ID-">
+		
+		<!-- 
+		
+nano			image	
+gap	Cor-v E3	gap	Cor-v E4
+100				
+80	0.1 		80	0.15
+70	0.2 		70	0.25
+60	0.3 		60	0.35
+50	0.5 		50	0.35
+45	0.55		45	
+				
+				
+75 – more	0.1 		75 – more	0.15
+75 – 65 	0.2 		75 – 65 	0.25
+65 – 55 	0.3 		65 – 55 	0.35
+55 – 47.5	0.5 		55 – 47.5	0.35
+47.5 – less	0.55		47.5 – less	0.35
+				
+		 -->
+			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+				<name>S1:FeedbackLoop:Wiggler-01</name>
+				<enabled>false</enabled>
+				<outputPV>ACS:PCH_ID-S1.01:current</outputPV>
+				<inputPV>A:ID-S1:Wig:01:Position:Setpoint:Get</inputPV>
+				<outputPoints>0.35,0.35,0.35,0.25,0.15</outputPoints>
+				<breakPoints>47.5,55,65,75</breakPoints>
+				<precision>0.001</precision>
+				<reactionWindow>3000</reactionWindow>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+				<name>S4:FeedbackLoop:Wiggler-01</name>
+				<enabled>false</enabled>
+				<outputPV>ACS:PCH_ID-S4.01:current</outputPV>
+				<inputPV>A:ID-S4:Wig:01:Position:Setpoint:Get</inputPV>
+				<outputPoints>0.55,0.5,0.3,0.2,0.1</outputPoints>
+				<breakPoints>47.5,55,65,75</breakPoints>
+				<precision>0.001</precision>
+				<reactionWindow>3000</reactionWindow>
+			</application>
+		
+		</group>
+		
+		<group name="BBB Feedback Loop" path="A:SR">
+			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+				<name>:FeedbackLoop:BBB-01</name>
+				<enabled>false</enabled>
+				<outputPV>A:SR:BBB:01:Z:FBELT:SERVO:MODE</outputPV>
+				<inputPV>A:SR:BeamInfo:01:Current</inputPV>
+				<outputPoints>0,1</outputPoints>
+				<breakPoints>10</breakPoints>
+				<precision>0.001</precision>
+				<reactionWindow>3000</reactionWindow>
+			</application>
+		</group>
+		
+		<group name="RF Temp Feedback" path="A:SR:FeedbackLoop:">
+
+			<group name="rftemp_template" template="true">			
+				<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+					<name>RFTemp-${idx}</name>
+					<enabled>false</enabled>
+					<outputPV>ACS:RFCOOL_${sec}.0${el}:heaterTemp${temp}</outputPV>
+					<inputPV>ACS:RFAPL_${sec}.01:voltage</inputPV>
+					<outputPoints>70, 40</outputPoints>
+					<breakPoints>200</breakPoints>
+					<precision>0.001</precision>
+					<reactionWindow>3000</reactionWindow>
+				</application>
+			</group>
+			
+			<group><substitutions><sec>S2</sec><el>1</el><temp>1</temp><idx>01</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S2</sec><el>1</el><temp>2</temp><idx>02</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S2</sec><el>2</el><temp>1</temp><idx>03</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S2</sec><el>2</el><temp>2</temp><idx>04</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>1</el><temp>1</temp><idx>05</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>1</el><temp>2</temp><idx>06</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>2</el><temp>1</temp><idx>07</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>2</el><temp>2</temp><idx>08</idx></substitutions><insert>rftemp_template</insert></group>
+			
+			<group name="RF Temp Sums" path="RFTempSum-01:">
+				<substitutions><pref>A:SR:FeedbackLoop:RFTemp-</pref></substitutions>
+				<record>
+					<name>Enabled</name>
+					<type>DBR_BYTE</type>
+					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+						<input>
+							<links>${pref}01:Enabled,${pref}02:Enabled,${pref}03:Enabled,${pref}04:Enabled,${pref}05:Enabled,${pref}06:Enabled,${pref}07:Enabled,${pref}08:Enabled</links>
+						</input>
+					</processor>
+				</record>
+				<record>
+					<name>InSync</name>
+					<type>DBR_BYTE</type>
+					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+						<input>
+							<links>${pref}01:InSync,${pref}02:InSync,${pref}03:InSync,${pref}04:InSync,${pref}05:InSync,${pref}06:InSync,${pref}07:InSync,${pref}08:InSync</links>
+						</input>
+					</processor>
+				</record>
+				<record>
+					<name>Status:ErrorSum</name>
+					<type>DBR_BYTE</type>
+					<processor instance="com.kriznar.csshell.epics.server.processor.ORValueProcessor">
+						<input>
+							<links>${pref}01:Status:ErrorSum,${pref}02:Status:ErrorSum,${pref}03:Status:ErrorSum,${pref}04:Status:ErrorSum,${pref}05:Status:ErrorSum,${pref}06:Status:ErrorSum,${pref}07:Status:ErrorSum,${pref}08:Status:ErrorSum</links>
+						</input>
+					</processor>
+				</record>
+			</group>
+		</group>
+
+		<group name="PS Group Injector" path="A:EL:PSGroup:">
+			<application instance="com.kriznar.csshell.epics.server.application.devicegroup.DeviceGroupApplication">
+				<name>01</name>
+				<devices>A:IL:PS:MB-01,A:EL:PS:MB-01,A:EL:PS:MB-02,A:EL:PS:MQ-01,A:EL:PS:MQ-02,A:EL:PS:MQ-03,A:EL:PS:MQ-04,A:EL:PS:MQ-05,A:EL:PS:MQ-06,A:EL:PS:MQ-07,A:EL:PS:MQ-08,A:EL:PS:MQ-09</devices>
+			</application>
+		</group>
+		
+		<group name="Beam Info" path="A:SR:BeamInfo:01:">
+			<record>
+				<name>Current:Plot1s</name>
+				<type>DBR_DOUBLE</type>
+				<units>mA</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>1000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Current</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Current:Plot15s</name>
+				<type>DBR_DOUBLE</type>
+				<units>mA</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>15000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Current</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Current:Plot1m</name>
+				<type>DBR_DOUBLE</type>
+				<units>mA</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>60000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Current</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Lifetime:Plot1s</name>
+				<type>DBR_DOUBLE</type>
+				<units>h</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>1000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Lifetime</link>
+					</input>
+					<filter>AVG</filter>
+					<transform>
+						<x0>0.0</x0>
+						<x1>0.000277778</x1>
+					</transform>
+				</processor>
+			</record>
+			<record>
+				<name>Lifetime:Plot15s</name>
+				<type>DBR_DOUBLE</type>
+				<units>h</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>15000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Lifetime</link>
+					</input>
+					<filter>AVG</filter>
+					<transform>
+						<x0>0.0</x0>
+						<x1>0.000277778</x1>
+					</transform>
+				</processor>
+			</record>
+			<record>
+				<name>Lifetime:Plot1m</name>
+				<type>DBR_DOUBLE</type>
+				<units>h</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>60000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Lifetime</link>
+					</input>
+					<filter>AVG</filter>
+					<transform>
+						<x0>0.0</x0>
+						<x1>0.000277778</x1>
+					</transform>
+				</processor>
+			</record>
+			<record>
+				<name>Energy:Plot1s</name>
+				<type>DBR_DOUBLE</type>
+				<units>GeV</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>1000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Energy</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Energy:Plot15s</name>
+				<type>DBR_DOUBLE</type>
+				<units>Gev</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>15000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Energy</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Energy:Plot1m</name>
+				<type>DBR_DOUBLE</type>
+				<units>GeV</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>60000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Energy</link>
+					</input>
+				</processor>
+			</record>
+		</group>
+		
+	</server>
+	
+	
+	<server name="AppTest">
+	
+		<management>
+			<name>A:${host}:${server}</name>
+		</management>
+		
+		<group name="RF Temp Feedback" path="A:SR:FeedbackLoop:">
+
+			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+				<name>RFTemp-01</name>
+				<enabled>false</enabled>
+				<outputPV>A:SR:BBB:01:Z:FBELT:SERVO:MODE</outputPV>
+				<inputPV>A:SR:BeamInfo:01:Current</inputPV>
+				<outputPoints>0,1</outputPoints>
+				<breakPoints>10</breakPoints>
+				<precision>0.001</precision>
+				<reactionWindow>3000</reactionWindow>
+			</application>
+
+
+			
+		</group>
+
+
+	</server>
+
+</config>

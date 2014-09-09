@@ -1,0 +1,1 @@
+This folder contains variable files. Such as storage of persistancy application values.

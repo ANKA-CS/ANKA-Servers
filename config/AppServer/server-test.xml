@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+
+	<server name="AppsTest">
+	
+		<management>
+			<name>A:${host}:${server}</name>
+		</management>
+		
+		<group name="TEST">
+
+		<group name="RF Temp Feedback" path="A:SR:FeedbackLoop:">
+
+			<group name="rftemp_template" template="true">			
+				<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+					<name>RFTemp-${idx}</name>
+					<enabled>false</enabled>
+					<outputPV>ACS:RFCOOL_${sec}.0${el}:heaterTemp${temp}</outputPV>
+					<inputPV>ACS:RFAPL_${sec}.01:voltage</inputPV>
+					<outputPoints>40,70</outputPoints>
+					<breakPoints>200</breakPoints>
+					<precision>0.001</precision>
+					<reactionWindow>3000</reactionWindow>
+				</application>
+			</group>
+			
+			<group><substitutions><sec>S2</sec><el>1</el><temp>1</temp><idx>01</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S2</sec><el>1</el><temp>2</temp><idx>02</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S2</sec><el>2</el><temp>1</temp><idx>03</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S2</sec><el>2</el><temp>2</temp><idx>04</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>1</el><temp>1</temp><idx>05</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>1</el><temp>2</temp><idx>06</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>2</el><temp>1</temp><idx>07</idx></substitutions><insert>rftemp_template</insert></group>
+			<group><substitutions><sec>S4</sec><el>2</el><temp>2</temp><idx>08</idx></substitutions><insert>rftemp_template</insert></group>
+			
+			<group name="RF Temp Sums" path="RFTempSum-01:">
+				<substitutions><pref>A:SR:FeedbackLoop:RFTemp-</pref></substitutions>
+				<record>
+					<name>Enabled</name>
+					<type>DBR_BYTE</type>
+					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+						<input>
+							<links>${pref}01:Enabled,${pref}02:Enabled,${pref}03:Enabled,${pref}04:Enabled,${pref}05:Enabled,${pref}06:Enabled,${pref}07:Enabled,${pref}08:Enabled</links>
+						</input>
+					</processor>
+				</record>
+				<record>
+					<name>InSync</name>
+					<type>DBR_BYTE</type>
+					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+						<input>
+							<links>${pref}01:InSync,${pref}02:InSync,${pref}03:InSync,${pref}04:InSync,${pref}05:InSync,${pref}06:InSync,${pref}07:InSync,${pref}08:InSync</links>
+						</input>
+					</processor>
+				</record>
+				<record>
+					<name>Status:ErrorSum</name>
+					<type>DBR_BYTE</type>
+					<processor instance="com.kriznar.csshell.epics.server.processor.ORValueProcessor">
+						<input>
+							<links>${pref}01:Status:ErrorSum,${pref}02:Status:ErrorSum,${pref}03:Status:ErrorSum,${pref}04:Status:ErrorSum,${pref}05:Status:ErrorSum,${pref}06:Status:ErrorSum,${pref}07:Status:ErrorSum,${pref}08:Status:ErrorSum</links>
+						</input>
+					</processor>
+				</record>
+			</group>
+		</group>
+		</group>
+
+
+	</server>
+
+</config>
