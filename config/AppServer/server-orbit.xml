@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+
+	<server name="OrbitServer">
+	
+		<management>
+			<name>A:${host}:${server}</name>
+		</management>
+		
+		
+		<group name="Diag" path="A:SR:Orbit:">
+			<application instance="com.kriznar.csshell.epics.server.application.orbitserver.OrbitServerApplication">
+				<name>01</name>
+				<bpms>A:SR-S4:BPM:10,A:SR-S1:BPM:01,A:SR-S1:BPM:02,A:SR-S1:BPM:03,A:SR-S1:BPM:04,A:SR-S1:BPM:05,A:SR-S1:BPM:06,A:SR-S1:BPM:07,A:SR-S1:BPM:08,A:SR-S1:BPM:09,A:SR-S1:BPM:10,A:SR-S2:BPM:01,A:SR-S2:BPM:02,A:SR-S2:BPM:03,A:SR-S2:BPM:04,A:SR-S2:BPM:05,A:SR-S2:BPM:06,A:SR-S2:BPM:07,A:SR-S2:BPM:08,A:SR-S2:BPM:09,A:SR-S2:BPM:10,A:SR-S3:BPM:01,A:SR-S3:BPM:02,A:SR-S3:BPM:03,A:SR-S3:BPM:04,A:SR-S3:BPM:05,A:SR-S3:BPM:06,A:SR-S3:BPM:07,A:SR-S3:BPM:08,A:SR-S3:BPM:09,A:SR-S3:BPM:10,A:SR-S4:BPM:01,A:SR-S4:BPM:03,A:SR-S4:BPM:05,A:SR-S4:BPM:06,A:SR-S4:BPM:07,A:SR-S4:BPM:08,A:SR-S4:BPM:09</bpms>
+				<!-- Use this URL inside machine network -->
+				<archive_url>http://ankasr-main.anka-acc.kit.edu:9812/archive/1</archive_url>
+				<!-- Use this URL inside office network -->
+				<!-- archive_url>http://ankasr-main.anka.kit.edu:9812/archive/1</archive_url-->
+				<bpm_positions>bpm_positions.properties</bpm_positions>
+				<reference_orbit>var/reference_orbit.csv</reference_orbit>
+				<mem_orbit>var/mem_orbit.csv</mem_orbit>
+				<bbaref_orbit>var/bbaref_orbit.csv</bbaref_orbit>
+			</application>
+		</group>
+
+
+	</server>
+
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+
+	<server name="ProcessManagerGroup">
+
+		<management>
+			<name>A:${host}:ProcManGroup</name>
+		</management>
+	
+        <group name="Most Linux Services" path="A:GL:ProcManGroup">
+            <application instance="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerGroupApplication">
+                <name>:01</name>
+                <description>Most Linux Services</description>
+                <managers>A:GL:ProcMan:ioc-acs-ps-adapter-01,A:GL:ProcMan:ioc-agilent-ion-pump-01,A:GL:ProcMan:ioc-bbb-global-01,A:GL:ProcMan:ioc-bpm-rsa-01,A:GL:ProcMan:ioc-daresbury-wiggler-01,A:GL:ProcMan:ioc-el-itech-01,A:GL:ProcMan:ioc-id-scraper-01,A:GL:ProcMan:ioc-llrf-booster-01,A:GL:ProcMan:ioc-llrf-global-01,A:GL:ProcMan:ioc-matrix-switch-01,A:GL:ProcMan:ioc-operationstatus-01,A:GL:ProcMan:ioc-ps-check-01,A:GL:ProcMan:ioc-ps-kepco-01,A:GL:ProcMan:ioc-booster-rf-plc-01,A:GL:ProcMan:ioc-rfamplifier-booster-01,A:GL:ProcMan:ioc-scraper-01,A:GL:ProcMan:ioc-scw1-01,A:GL:ProcMan:ioc-scw2-01,A:GL:ProcMan:ioc-slm-filterWheel-01,A:GL:ProcMan:ioc-snrfilter-01,A:GL:ProcMan:ioc-sul-wiggler-01,A:GL:ProcMan:ioc-leadglasscounter-01,A:GL:ProcMan:css-archive-server-01,A:GL:ProcMan:casgateway-injector-01,A:GL:ProcMan:casgateway-sr-01,A:GL:ProcMan:cagateway-01,A:GL:ProcMan:ioc-beaminfo-01,A:GL:ProcMan:ioc-ssg-sg-01,A:GL:ProcMan:apache-activemq-01,A:GL:ProcMan:css-jms2rdb-01,A:GL:ProcMan:css-alarm-server-01,A:GL:ProcMan:anka-alarm-server-01,A:GL:ProcMan:anka-app-server-01,A:GL:ProcMan:anka-appaux-server-01,A:GL:ProcMan:fastoc-server-01,A:GL:ProcMan:customoc-server-01,A:GL:ProcMan:snr-server-01,A:GL:ProcMan:anka-orbit-server-01</managers>
+            </application>
+        </group>
+        	
+	</server>
+	
+</config>

@@ -3,334 +3,455 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
 
-	<server name="Apps">
-	
-		<management>
-			<name>A:${host}:${server}</name>
-		</management>
+    <server name="Apps">
+
+        <management>
+            <name>A:${host}:${server}</name>
+        </management>
 
 
-		<group name="PC Cycling" path="A:GL:PSCycle:">
-			
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>IB-01</name>
-				<device>A:IL:PS:MB-01</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>MB-11</name>
-				<device>A:MI:PS:MB-11</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EB-01</name>
-				<device>A:EL:PS:MB-01</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EB-02</name>
-				<device>A:EL:PS:MB-02</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-01</name>
-				<device>A:EL:PS:MQ-01</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-02</name>
-				<device>A:EL:PS:MQ-02</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-03</name>
-				<device>A:EL:PS:MQ-03</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-04</name>
-				<device>A:EL:PS:MQ-04</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-05</name>
-				<device>A:EL:PS:MQ-05</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-06</name>
-				<device>A:EL:PS:MQ-06</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-07</name>
-				<device>A:EL:PS:MQ-07</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-08</name>
-				<device>A:EL:PS:MQ-08</device>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
-				<name>EQ-09</name>
-				<device>A:EL:PS:MQ-01</device>
-			</application>
 
-		</group>
-		
-		<group name="Wiggler Feedback Loop" path="A:ID-">
-		
-		<!-- 
-		
-nano			image	
-gap	Cor-v E3	gap	Cor-v E4
-100				
-80	0.1 		80	0.15
-70	0.2 		70	0.25
-60	0.3 		60	0.35
-50	0.5 		50	0.35
-45	0.55		45	
-				
-				
-75 – more	0.1 		75 – more	0.15
-75 – 65 	0.2 		75 – 65 	0.25
-65 – 55 	0.3 		65 – 55 	0.35
-55 – 47.5	0.5 		55 – 47.5	0.35
-47.5 – less	0.55		47.5 – less	0.35
-				
-		 -->
-			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
-				<name>S1:FeedbackLoop:Wiggler-01</name>
-				<enabled>false</enabled>
-				<outputPV>ACS:PCH_ID-S1.01:current</outputPV>
-				<inputPV>A:ID-S1:Wig:01:Position:Setpoint:Get</inputPV>
-				<outputPoints>0.35,0.35,0.35,0.25,0.15</outputPoints>
-				<breakPoints>47.5,55,65,75</breakPoints>
-				<precision>0.001</precision>
-				<reactionWindow>3000</reactionWindow>
-			</application>
-			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
-				<name>S4:FeedbackLoop:Wiggler-01</name>
-				<enabled>false</enabled>
-				<outputPV>ACS:PCH_ID-S4.01:current</outputPV>
-				<inputPV>A:ID-S4:Wig:01:Position:Setpoint:Get</inputPV>
-				<outputPoints>0.55,0.5,0.3,0.2,0.1</outputPoints>
-				<breakPoints>47.5,55,65,75</breakPoints>
-				<precision>0.001</precision>
-				<reactionWindow>3000</reactionWindow>
-			</application>
-		
-		</group>
-		
-		<group name="BBB Feedback Loop" path="A:SR">
-			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
-				<name>:FeedbackLoop:BBB-01</name>
-				<enabled>false</enabled>
-				<outputPV>A:SR:BBB:01:Z:FBELT:SERVO:MODE</outputPV>
-				<inputPV>A:SR:BeamInfo:01:Current</inputPV>
-				<outputPoints>0,1</outputPoints>
-				<breakPoints>10</breakPoints>
-				<precision>0.001</precision>
-				<reactionWindow>3000</reactionWindow>
-			</application>
-		</group>
-		
-		<group name="RF Temp Feedback" path="A:SR:FeedbackLoop:">
+        <group name="Wiggler Feedback Loop" path="A:ID-">
 
-			<group name="rftemp_template" template="true">			
-				<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
-					<name>RFTemp-${idx}</name>
-					<enabled>false</enabled>
-					<outputPV>ACS:RFCOOL_${sec}.0${el}:heaterTemp${temp}</outputPV>
-					<inputPV>ACS:RFAPL_${sec}.01:voltage</inputPV>
-					<outputPoints>70, 40</outputPoints>
-					<breakPoints>200</breakPoints>
-					<precision>0.001</precision>
-					<reactionWindow>3000</reactionWindow>
-				</application>
-			</group>
-			
-			<group><substitutions><sec>S2</sec><el>1</el><temp>1</temp><idx>01</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S2</sec><el>1</el><temp>2</temp><idx>02</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S2</sec><el>2</el><temp>1</temp><idx>03</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S2</sec><el>2</el><temp>2</temp><idx>04</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>1</el><temp>1</temp><idx>05</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>1</el><temp>2</temp><idx>06</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>2</el><temp>1</temp><idx>07</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>2</el><temp>2</temp><idx>08</idx></substitutions><insert>rftemp_template</insert></group>
-			
-			<group name="RF Temp Sums" path="RFTempSum-01:">
-				<substitutions><pref>A:SR:FeedbackLoop:RFTemp-</pref></substitutions>
-				<record>
-					<name>Enabled</name>
-					<type>DBR_BYTE</type>
-					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
-						<input>
-							<links>${pref}01:Enabled,${pref}02:Enabled,${pref}03:Enabled,${pref}04:Enabled,${pref}05:Enabled,${pref}06:Enabled,${pref}07:Enabled,${pref}08:Enabled</links>
-						</input>
-					</processor>
-				</record>
-				<record>
-					<name>InSync</name>
-					<type>DBR_BYTE</type>
-					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
-						<input>
-							<links>${pref}01:InSync,${pref}02:InSync,${pref}03:InSync,${pref}04:InSync,${pref}05:InSync,${pref}06:InSync,${pref}07:InSync,${pref}08:InSync</links>
-						</input>
-					</processor>
-				</record>
-				<record>
-					<name>Status:ErrorSum</name>
-					<type>DBR_BYTE</type>
-					<processor instance="com.kriznar.csshell.epics.server.processor.ORValueProcessor">
-						<input>
-							<links>${pref}01:Status:ErrorSum,${pref}02:Status:ErrorSum,${pref}03:Status:ErrorSum,${pref}04:Status:ErrorSum,${pref}05:Status:ErrorSum,${pref}06:Status:ErrorSum,${pref}07:Status:ErrorSum,${pref}08:Status:ErrorSum</links>
-						</input>
-					</processor>
-				</record>
-			</group>
-		</group>
+<!--
 
-		<group name="PS Group Injector" path="A:EL:PSGroup:">
-			<application instance="com.kriznar.csshell.epics.server.application.devicegroup.DeviceGroupApplication">
-				<name>01</name>
-				<devices>A:IL:PS:MB-01,A:EL:PS:MB-01,A:EL:PS:MB-02,A:EL:PS:MQ-01,A:EL:PS:MQ-02,A:EL:PS:MQ-03,A:EL:PS:MQ-04,A:EL:PS:MQ-05,A:EL:PS:MQ-06,A:EL:PS:MQ-07,A:EL:PS:MQ-08,A:EL:PS:MQ-09</devices>
-			</application>
-		</group>
-		
-		<group name="Beam Info" path="A:SR:BeamInfo:01:">
-			<record>
-				<name>Current:Plot1s</name>
-				<type>DBR_DOUBLE</type>
-				<units>mA</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>1000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Current</link>
-					</input>
-				</processor>
-			</record>
-			<record>
-				<name>Current:Plot15s</name>
-				<type>DBR_DOUBLE</type>
-				<units>mA</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>15000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Current</link>
-					</input>
-				</processor>
-			</record>
-			<record>
-				<name>Current:Plot1m</name>
-				<type>DBR_DOUBLE</type>
-				<units>mA</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>60000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Current</link>
-					</input>
-				</processor>
-			</record>
-			<record>
-				<name>Lifetime:Plot1s</name>
-				<type>DBR_DOUBLE</type>
-				<units>h</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>1000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Lifetime</link>
-					</input>
-					<filter>AVG</filter>
-					<transform>
-						<x0>0.0</x0>
-						<x1>0.000277778</x1>
-					</transform>
-				</processor>
-			</record>
-			<record>
-				<name>Lifetime:Plot15s</name>
-				<type>DBR_DOUBLE</type>
-				<units>h</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>15000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Lifetime</link>
-					</input>
-					<filter>AVG</filter>
-					<transform>
-						<x0>0.0</x0>
-						<x1>0.000277778</x1>
-					</transform>
-				</processor>
-			</record>
-			<record>
-				<name>Lifetime:Plot1m</name>
-				<type>DBR_DOUBLE</type>
-				<units>h</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>60000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Lifetime</link>
-					</input>
-					<filter>AVG</filter>
-					<transform>
-						<x0>0.0</x0>
-						<x1>0.000277778</x1>
-					</transform>
-				</processor>
-			</record>
-			<record>
-				<name>Energy:Plot1s</name>
-				<type>DBR_DOUBLE</type>
-				<units>GeV</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>1000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Energy</link>
-					</input>
-				</processor>
-			</record>
-			<record>
-				<name>Energy:Plot15s</name>
-				<type>DBR_DOUBLE</type>
-				<units>Gev</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>15000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Energy</link>
-					</input>
-				</processor>
-			</record>
-			<record>
-				<name>Energy:Plot1m</name>
-				<type>DBR_DOUBLE</type>
-				<units>GeV</units>
-				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
-					<trigger>60000</trigger>
-					<input>
-						<link>A:SR:BeamInfo:01:Energy</link>
-					</input>
-				</processor>
-			</record>
-		</group>
-		
-	</server>
-	
-	
-	<server name="AppTest">
-	
-		<management>
-			<name>A:${host}:${server}</name>
-		</management>
-		
-		<group name="RF Temp Feedback" path="A:SR:FeedbackLoop:">
+    gap  |  I [A]
+    50   |   0.01
+    60   |  -0.23
+    80   |  -0.50
+    100  |  -0.73
+    120  |  -0.84
+    150  |  -1.09
+         |  -1.27
 
-			<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
-				<name>RFTemp-01</name>
-				<enabled>false</enabled>
-				<outputPV>A:SR:BBB:01:Z:FBELT:SERVO:MODE</outputPV>
-				<inputPV>A:SR:BeamInfo:01:Current</inputPV>
-				<outputPoints>0,1</outputPoints>
-				<breakPoints>10</breakPoints>
-				<precision>0.001</precision>
-				<reactionWindow>3000</reactionWindow>
-			</application>
+-->
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>S4:FeedbackLoop:Wiggler-02</name>
+                <enabled>false</enabled>
+                <inputPV>A:ID-S4:Wig:02:Position:Setpoint:Get</inputPV>
+                <outputPV>ACS:PCH_ID-S1.01:current</outputPV>
+                <breakPoints>50,60,80,100,120,150</breakPoints>
+                <outputPoints>0.01,-0.23,-0.50,-0.73,-0.84,-1.09,-1.27</outputPoints>
+                <inputPrecision>0.01</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application>
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>S4:FeedbackLoop:Wiggler-01</name>
+                <enabled>false</enabled>
+                <inputPV>A:ID-S4:Wig:01:Position:Setpoint:Get</inputPV>
+                <outputPV>ACS:PCH_ID-S4.01:current</outputPV>
+                <breakPoints>50,60,80,100,120,150</breakPoints>
+                <outputPoints>0.01,-0.23,-0.50,-0.73,-0.84,-1.09,-1.27</outputPoints>
+                <inputPrecision>0.01</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application>
 
 
-			
-		</group>
+<!--
+B [T]      |  I [A]
+1.515150   |  0.00000
+3.030300   |  0.01115
+4.545450   |  0.02229
+6.060610   |  0.03344
+7.575760   |  0.04668
+9.090910   |  0.06080
+10.60606   |  0.07493
+12.12121   |  0.08947
+13.63636   |  0.10430
+15.15152   |  0.11528
+16.66667   |  0.12661
+18.18182   |  0.14122
+19.69697   |  0.15583
+21.21212   |  0.17043
+22.72727   |  0.18377
+24.24242   |  0.19678
+25.75758   |  0.20980
+27.27273   |  0.22282
+28.78788   |  0.23584
+30.30303   |  0.24578
+31.81818   |  0.25288
+33.33333   |  0.25998
+34.84848   |  0.26708
+36.36364   |  0.27418
+37.87879   |  0.28129
+39.39394   |  0.28839
+40.90909   |  0.29549
+42.42424   |  0.29956
+43.93939   |  0.30160
+45.45455   |  0.30364
+46.96970   |  0.30567
+48.48485   |  0.30771
+50.00000   |  0.30975
+51.51515   |  0.31179
+53.03030   |  0.31383
+54.54545   |  0.31587
+56.06061   |  0.31791
+57.57576   |  0.31995
+59.09091   |  0.32199
+60.60606   |  0.32403
+62.12121   |  0.32578
+63.63636   |  0.32710
+65.15152   |  0.32842
+66.66667   |  0.32974
+68.18182   |  0.33106
+69.69697   |  0.33238
+71.21212   |  0.33370
+72.72727   |  0.33502
+74.24242   |  0.33634
+75.75758   |  0.33766
+77.27273   |  0.33898
+78.78788   |  0.34029
+80.30303   |  0.34161
+81.81818   |  0.34282
+83.33333   |  0.34358
+84.84848   |  0.34434
+86.36364   |  0.34510
+87.87879   |  0.34586
+89.39394   |  0.34662
+90.90909   |  0.34738
+92.42424   |  0.34814
+93.93939   |  0.34890
+95.45455   |  0.34967
+96.96970   |  0.35043
+98.48485   |  0.35119
+100.00000  |  0.35195
+101.51515  |  0.35271
+103.03030  |  0.35323
+104.54545  |  0.35375
+106.06061  |  0.35427
+107.57576  |  0.35479
+109.09091  |  0.35531
+110.60606  |  0.35584
+112.12121  |  0.35636
+113.63636  |  0.35688
+115.15152  |  0.35740
+116.66667  |  0.35792
+118.18182  |  0.35844
+119.69697  |  0.35896
+121.21212  |  0.35949
+122.72727  |  0.36001
+124.24242  |  0.36053
+125.75758  |  0.36105
+127.27273  |  0.36157
+128.78788  |  0.36209
+130.30303  |  0.36261
+131.81818  |  0.36314
+133.33333  |  0.36366
+134.84848  |  0.36418
+136.36364  |  0.36470
+137.87879  |  0.36522
+139.39394  |  0.36574
+140.90909  |  0.36626
+142.42424  |  0.36679
+143.93939  |  0.36731
+145.45455  |  0.36783
+146.96970  |  0.36835
+148.48485  |  0.36887
+150.00000  |  0.36939
+              0.36992
+-->
+            <!-- 20151006 OLD Feedbackloop -->
+            <!-- application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>S1:FeedbackLoop:SUL15-01</name>
+                <enabled>false</enabled>
+                <differential>true</differential>
+                <inputPV>A:ID-S1:SCU15:01:MainCoils:PS:Current:Readback</inputPV>
+                <outputPV>A:SR-S1:PS:MCH-08:Current:Setpoint</outputPV>
+                <breakPoints>1.51515,3.0303,4.54545,6.06061,7.57576 ,9.09091,10.60606,12.12121,13.63636,15.15152,16.66667,18.18182,19.69697,21.21212,22.72727,24.24242,25.75758,27.27273,28.78788,30.30303,31.81818,33.33333,34.84848,36.36364,37.87879,39.39394,40.90909,42.42424,43.93939,45.45455,46.9697,48.48485,50,51.51515,53.0303,54.54545,56.06061,57.57576,59.09091,60.60606,62.12121,63.63636,65.15152,66.66667,68.18182,69.69697,71.21212,72.72727,74.24242,75.75758,77.27273,78.78788,80.30303,81.81818,83.33333,84.84848,86.36364,87.87879,89.39394,90.90909,92.42424,93.93939,95.45455,96.9697,98.48485,100,101.51515,103.0303,104.54545,106.06061,107.57576,109.09091,110.60606,112.12121,113.63636,115.15152,116.66667,118.18182,119.69697,121.21212,122.72727,124.24242,125.75758,127.27273,128.78788,130.30303,131.81818,133.33333,134.84848,136.36364,137.87879,139.39394,140.90909,142.42424,143.93939,145.45455,146.9697,148.48485,150</breakPoints>
+                <outputPoints>0.0,0.01115,0.02229,0.03344,0.04668,0.0608,0.07493,0.08947,0.1043,0.11528,0.12661,0.14122,0.15583,0.17043,0.18377,0.19678,0.2098,0.22282,0.23584,0.24578,0.25288,0.25998,0.26708,0.27418,0.28129,0.28839,0.29549,0.29956,0.3016,0.30364,0.30567,0.30771,0.30975,0.31179,0.31383,0.31587,0.31791,0.31995,0.32199,0.32403,0.32578,0.3271,0.32842,0.32974,0.33106,0.33238,0.3337,0.33502,0.33634,0.33766,0.33898,0.34029,0.34161,0.34282,0.34358,0.34434,0.3451,0.34586,0.34662,0.34738,0.34814,0.3489,0.34967,0.35043,0.35119,0.35195,0.35271,0.35323,0.35375,0.35427,0.35479,0.35531,0.35584,0.35636,0.35688,0.3574,0.35792,0.35844,0.35896,0.35949,0.36001,0.36053,0.36105,0.36157,0.36209,0.36261,0.36314,0.36366,0.36418,0.3647,0.36522,0.36574,0.36626,0.36679,0.36731,0.36783,0.36835,0.36887,0.36939,0.36992</outputPoints -->
+                <!-- <breakPoints>10,12,17,20,23,27,30,40,50,60,80,100,120,150</breakPoints>
+                <outputPoints>-0.02,0.061,0.09,0.175,0.2205,0.26,0.29,0.296,0.2816,0.2779,0.2923,0.31,0.3194,0.3245,0.3323</outputPoints-->
+                <!-- inputPrecision>0.1</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application -->
+
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>S1:FeedbackLoop:SUL15-02</name>
+                <enabled>false</enabled>
+                <inputPV>A:ID-S1:SCU15:01:MainCoils:PS:Current:Readback</inputPV>
+                <outputPV>A:ID-S1:SCU15:PSMCH-01:Current:Setpoint</outputPV>
+                <differential>true</differential>
+                <breakPoints>0.30060,0.60120,0.90180,1.20240,1.50301,1.80361,2.10421,2.40481,2.70541,3.00601,3.30661,3.60721,3.90782,4.20842,4.50902,4.80962,5.11022,5.41082,5.71142,6.01202,6.31263,6.61323,6.91383,7.21443,7.51503,7.81563,8.11623,8.41683,8.71743,9.01804,9.31864,9.61924,9.91984,10.22044,10.52104,10.82164,11.12224,11.42285,11.72345,12.02405,12.32465,12.62525,12.92585,13.22645,13.52705,13.82766,14.12826,14.42886,14.72946,15.03006,15.33066,15.63126,15.93186,16.23246,16.53307,16.83367,17.13427,17.43487,17.73547,18.03607,18.33667,18.63727,18.93788,19.23848,19.53908,19.83968,20.14028,20.44088,20.74148,21.04208,21.34269,21.64329,21.94389,22.24449,22.54509,22.84569,23.14629,23.44689,23.74749,24.04810,24.34870,24.64930,24.94990,25.25050,25.55110,25.85170,26.15230,26.45291,26.75351,27.05411,27.35471,27.65531,27.95591,28.25651,28.55711,28.85772,29.15832,29.45892,29.75952,30.06012,30.36072,30.66132,30.96192,31.26253,31.56313,31.86373,32.16433,32.46493,32.76553,33.06613,33.36673,33.66733,33.96794,34.26854,34.56914,34.86974,35.17034,35.47094,35.77154,36.07214,36.37275,36.67335,36.97395,37.27455,37.57515,37.87575,38.17635,38.47695,38.77756,39.07816,39.37876,39.67936,39.97996,40.28056,40.58116,40.88176,41.18236,41.48297,41.78357,42.08417,42.38477,42.68537,42.98597,43.28657,43.58717,43.88778,44.18838,44.48898,44.78958,45.09018,45.39078,45.69138,45.99198,46.29259,46.59319,46.89379,47.19439,47.49499,47.79559,48.09619,48.39679,48.69739,48.99800,49.29860,49.59920,49.89980,50.20040,50.50100,50.80160,51.10220,51.40281,51.70341,52.00401,52.30461,52.60521,52.90581,53.20641,53.50701,53.80762,54.10822,54.40882,54.70942,55.01002,55.31062,55.61122,55.91182,56.21242,56.51303,56.81363,57.11423,57.41483,57.71543,58.01603,58.31663,58.61723,58.91784,59.21844,59.51904,59.81964,60.12024,60.42084,60.72144,61.02204,61.32265,61.62325,61.92385,62.22445,62.52505,62.82565,63.12625,63.42685,63.72745,64.02806,64.32866,64.62926,64.92986,65.23046,65.53106,65.83166,66.13226,66.43287,66.73347,67.03407,67.33467,67.63527,67.93587,68.23647,68.53707,68.83768,69.13828,69.43888,69.73948,70.04008,70.34068,70.64128,70.94188,71.24248,71.54309,71.84369,72.14429,72.44489,72.74549,73.04609,73.34669,73.64729,73.94790,74.24850,74.54910,74.84970,75.15030,75.45090,75.75150,76.05210,76.35271,76.65331,76.95391,77.25451,77.55511,77.85571,78.15631,78.45691,78.75752,79.05812,79.35872,79.65932,79.95992,80.26052,80.56112,80.86172,81.16232,81.46293,81.76353,82.06413,82.36473,82.66533,82.96593,83.26653,83.56713,83.86774,84.16834,84.46894,84.76954,85.07014,85.37074,85.67134,85.97194,86.27255,86.57315,86.87375,87.17435,87.47495,87.77555,88.07615,88.37675,88.67735,88.97796,89.27856,89.57916,89.87976,90.18036,90.48096,90.78156,91.08216,91.38277,91.68337,91.98397,92.28457,92.58517,92.88577,93.18637,93.48697,93.78758,94.08818,94.38878,94.68938,94.98998,95.29058,95.59118,95.89178,96.19238,96.49299,96.79359,97.09419,97.39479,97.69539,97.99599,98.29659,98.59719,98.89780,99.19840,99.49900,99.79960,100.10020,100.40080,100.70140,101.00200,101.30261,101.60321,101.90381,102.20441,102.50501,102.80561,103.10621,103.40681,103.70741,104.00802,104.30862,104.60922,104.90982,105.21042,105.51102,105.81162,106.11222,106.41283,106.71343,107.01403,107.31463,107.61523,107.91583,108.21643,108.51703,108.81764,109.11824,109.41884,109.71944,110.02004,110.32064,110.62124,110.92184,111.22244,111.52305,111.82365,112.12425,112.42485,112.72545,113.02605,113.32665,113.62725,113.92786,114.22846,114.52906,114.82966,115.13026,115.43086,115.73146,116.03206,116.33267,116.63327,116.93387,117.23447,117.53507,117.83567,118.13627,118.43687,118.73747,119.03808,119.33868,119.63928,119.93988,120.24048,120.54108,120.84168,121.14228,121.44289,121.74349,122.04409,122.34469,122.64529,122.94589,123.24649,123.54709,123.84770,124.14830,124.44890,124.74950,125.05010,125.35070,125.65130,125.95190,126.25251,126.55311,126.85371,127.15431,127.45491,127.75551,128.05611,128.35671,128.65731,128.95792,129.25852,129.55912,129.85972,130.16032,130.46092,130.76152,131.06212,131.36273,131.66333,131.96393,132.26453,132.56513,132.86573,133.16633,133.46693,133.76754,134.06814,134.36874,134.66934,134.96994,135.27054,135.57114,135.87174,136.17234,136.47295,136.77355,137.07415,137.37475,137.67535,137.97595,138.27655,138.57715,138.87776,139.17836,139.47896,139.77956,140.08016,140.38076,140.68136,140.98196,141.28257,141.58317,141.88377,142.18437,142.48497,142.78557,143.08617,143.38677,143.68737,143.98798,144.28858,144.58918,144.88978,145.19038,145.49098,145.79158,146.09218,146.39279,146.69339,146.99399,147.29459,147.59519,147.89579,148.19639,148.49699,148.79760,149.09820,149.39880,149.69940,150.00000</breakPoints>
+                <outputPoints>0.00000,0.00351,0.00484,0.00616,0.00749,0.00882,0.01015,0.01148,0.01281,0.01414,0.01546,0.01683,0.01820,0.01957,0.02094,0.02231,0.02368,0.02505,0.02642,0.02779,0.02916,0.03233,0.03632,0.04031,0.04430,0.04829,0.05228,0.05627,0.06026,0.06425,0.06824,0.07312,0.07879,0.08446,0.09013,0.09580,0.10147,0.10714,0.11281,0.11848,0.12415,0.12952,0.13438,0.13925,0.14411,0.14897,0.15384,0.15870,0.16357,0.16843,0.17329,0.17777,0.18085,0.18393,0.18701,0.19009,0.19318,0.19626,0.19934,0.20242,0.20550,0.20862,0.21229,0.21596,0.21963,0.22330,0.22697,0.23064,0.23431,0.23798,0.24165,0.24532,0.24871,0.25206,0.25541,0.25876,0.26211,0.26546,0.26881,0.27216,0.27552,0.27887,0.28196,0.28496,0.28796,0.29096,0.29396,0.29696,0.29996,0.30296,0.30596,0.30896,0.31195,0.31492,0.31790,0.32088,0.32385,0.32683,0.32980,0.33278,0.33576,0.33873,0.34089,0.34198,0.34307,0.34416,0.34525,0.34634,0.34743,0.34852,0.34961,0.35070,0.35164,0.35219,0.35274,0.35329,0.35384,0.35439,0.35494,0.35549,0.35604,0.35659,0.35708,0.35719,0.35729,0.35740,0.35750,0.35760,0.35771,0.35781,0.35792,0.35802,0.35813,0.35709,0.35601,0.35493,0.35385,0.35277,0.35169,0.35061,0.34953,0.34845,0.34737,0.34669,0.34609,0.34550,0.34491,0.34432,0.34373,0.34314,0.34255,0.34195,0.34136,0.34073,0.34007,0.33941,0.33875,0.33809,0.33743,0.33677,0.33611,0.33545,0.33479,0.33418,0.33361,0.33305,0.33249,0.33192,0.33136,0.33080,0.33023,0.32967,0.32911,0.32874,0.32877,0.32880,0.32883,0.32885,0.32888,0.32891,0.32894,0.32896,0.32899,0.32898,0.32880,0.32862,0.32845,0.32827,0.32809,0.32791,0.32773,0.32755,0.32737,0.32720,0.32713,0.32707,0.32701,0.32694,0.32688,0.32682,0.32675,0.32669,0.32663,0.32656,0.32650,0.32643,0.32636,0.32630,0.32623,0.32616,0.32610,0.32603,0.32596,0.32590,0.32615,0.32653,0.32691,0.32729,0.32767,0.32806,0.32844,0.32882,0.32920,0.32958,0.32983,0.32997,0.33012,0.33026,0.33041,0.33055,0.33069,0.33084,0.33098,0.33113,0.33128,0.33145,0.33162,0.33179,0.33196,0.33214,0.33231,0.33248,0.33265,0.33282,0.33299,0.33319,0.33338,0.33357,0.33376,0.33395,0.33414,0.33434,0.33453,0.33472,0.33491,0.33508,0.33525,0.33542,0.33559,0.33577,0.33594,0.33611,0.33628,0.33645,0.33662,0.33664,0.33665,0.33666,0.33667,0.33668,0.33669,0.33670,0.33671,0.33672,0.33673,0.33684,0.33698,0.33712,0.33726,0.33740,0.33754,0.33768,0.33782,0.33796,0.33810,0.33820,0.33828,0.33837,0.33845,0.33853,0.33862,0.33870,0.33878,0.33887,0.33895,0.33909,0.33928,0.33948,0.33968,0.33987,0.34007,0.34026,0.34046,0.34066,0.34085,0.34104,0.34121,0.34138,0.34155,0.34172,0.34189,0.34206,0.34223,0.34240,0.34257,0.34272,0.34274,0.34275,0.34277,0.34279,0.34281,0.34282,0.34284,0.34286,0.34288,0.34289,0.34296,0.34303,0.34310,0.34317,0.34324,0.34331,0.34338,0.34345,0.34352,0.34359,0.34377,0.34397,0.34418,0.34438,0.34458,0.34479,0.34499,0.34519,0.34540,0.34560,0.34573,0.34583,0.34593,0.34602,0.34612,0.34621,0.34631,0.34641,0.34650,0.34660,0.34669,0.34677,0.34685,0.34693,0.34701,0.34709,0.34717,0.34725,0.34733,0.34741,0.34759,0.34794,0.34829,0.34865,0.34900,0.34935,0.34970,0.35005,0.35041,0.35076,0.35101,0.35088,0.35075,0.35062,0.35048,0.35035,0.35022,0.35009,0.34996,0.34983,0.34973,0.35023,0.35074,0.35124,0.35174,0.35225,0.35275,0.35325,0.35376,0.35426,0.35476,0.35476,0.35471,0.35465,0.35459,0.35453,0.35447,0.35441,0.35436,0.35430,0.35424,0.35453,0.35494,0.35535,0.35576,0.35617,0.35658,0.35699,0.35740,0.35781,0.35822,0.35845,0.35855,0.35865,0.35875,0.35885,0.35895,0.35905,0.35914,0.35924,0.35934,0.35944,0.35954,0.35964,0.35974,0.35984,0.35993,0.36003,0.36013,0.36023,0.36033,0.36049,0.36081,0.36113,0.36145,0.36177,0.36209,0.36241,0.36273,0.36306,0.36338,0.36370,0.36401,0.36433,0.36465,0.36496,0.36528,0.36560,0.36591,0.36623,0.36654,0.36686,0.36722,0.36758,0.36794,0.36830,0.36866,0.36902,0.36938,0.36974,0.37010,0.37046,0.37078,0.37109,0.37139,0.37170,0.37200,0.37231,0.37262,0.37292,0.37323,0.37354,0.37368,0.37372,0.37377,0.37382,0.37387,0.37391,0.37396,0.37401,0.37406,0.37410,0.37415,0.37419,0.37424,0.37428,0.37432,0.37437,0.37441,0.37445,0.37450,0.37454,0.37458,0.37462</outputPoints>
+                <inputPrecision>0.1</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application>
 
 
-	</server>
 
+<!--
+For the operation of the CATACT at higher field we have to correct the vertical orbit
+by changing the vertical correctors 3.2 and 3.3 and we have to correct the tune
+by changing the QP4 3.1 and 3.2.
+
+Correction values according to the following table:
+B [T] |  I [A]
+1.00  |  0.0000
+1.02  |  0.0000
+1.04  |  0.0014
+1.06  |  0.0028
+1.08  |  0.0042
+1.10  |  0.0056
+1.12  |  0.0070
+1.14  |  0.0084
+1.16  |  0.0098
+1.18  |  0.0112
+1.20  |  0.0126
+1.22  |  0.0140
+1.24  |  0.0154
+1.26  |  0.0168
+1.28  |  0.0182
+1.30  |  0.0196
+1.32  |  0.0210
+1.34  |  0.0224
+1.36  |  0.0238
+1.38  |  0.0252
+1.40  |  0.0266
+1.42  |  0.0280
+1.44  |  0.0294
+1.46  |  0.0308
+1.48  |  0.0322
+1.50  |  0.0336
+1.52  |  0.0350
+1.54  |  0.0364
+1.56  |  0.0378
+1.58  |  0.0392
+1.60  |  0.0406
+1.62  |  0.0420
+1.64  |  0.0434
+1.66  |  0.0448
+1.68  |  0.0462
+1.70  |  0.0476
+1.72  |  0.0490
+1.74  |  0.0504
+1.76  |  0.0518
+1.78  |  0.0532
+1.80  |  0.0546
+1.82  |  0.056
+1.84  |  0.0574
+1.86  |  0.0588
+1.88  |  0.0602
+1.90  |  0.0616
+1.92  |  0.0630
+1.94  |  0.0644
+1.96  |  0.0658
+1.98  |  0.0672
+2.00  |  0.0686
+2.02  |  0.0700
+2.04  |  0.0714
+2.06  |  0.0728
+2.08  |  0.0742
+2.10  |  0.0756
+2.12  |  0.0770
+2.14  |  0.0784
+2.16  |  0.0798
+2.18  |  0.0812
+2.20  |  0.0826
+2.22  |  0.0840
+2.24  |  0.0854
+2.26  |  0.0868
+2.28  |  0.0882
+2.30  |  0.0896
+2.32  |  0.0910
+2.34  |  0.0924
+2.36  |  0.0938
+2.38  |  0.0952
+2.40  |  0.0966
+2.42  |  0.0980
+2.44  |  0.0994
+2.46  |  0.1008
+2.48  |  0.1022
+2.50  |  0.1036
+2.52  |  0.1050
+2.54  |  0.1064
+2.56  |  0.1078
+2.58  |  0.1092
+2.60  |  0.1106
+      |  0.1120
+-->
+<!-- Vertical Orbit does not have to be corrected by this table anymore since the Orbit correction will take care of that
+
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>S3:FeedbackLoop:CATACT-01</name>
+                <enabled>false</enabled>
+                <inputPV>A:ID-S3:Wig:01:Position:Readback</inputPV>
+                <outputPV>A:SR-S3:PS:MCV-02:Current:Setpoint</outputPV>
+                <differential>true</differential>
+                <breakPoints>1,1.02,1.04,1.06,1.08,1.1,1.12,1.14,1.16,1.18,1.2,1.22,1.24,1.26,1.28,1.3,1.32,1.34,1.36,1.38,1.4,1.42,1.44,1.46,1.48,1.5,1.52,1.54,1.56,1.58,1.6,1.62,1.64,1.66,1.68,1.7,1.72,1.74,1.76,1.78,1.8,1.82,1.84,1.86,1.88,1.9,1.92,1.94,1.96,1.98,2,2.02,2.04,2.06,2.08,2.1,2.12,2.14,2.16,2.18,2.2,2.22,2.24,2.26,2.28,2.3,2.32,2.34,2.36,2.38,2.4,2.42,2.44,2.46,2.48,2.5,2.52,2.54,2.56,2.58,2.6</breakPoints>
+                <outputPoints>0,0,0.0014,0.0028,0.0042,0.0056,0.007,0.0084,0.0098,0.0112,0.0126,0.014,0.0154,0.0168,0.0182,0.0196,0.021,0.0224,0.0238,0.0252,0.0266,0.028,0.0294,0.0308,0.0322,0.0336,0.035,0.0364,0.0378,0.0392,0.0406,0.042,0.0434,0.0448,0.0462,0.0476,0.049,0.0504,0.0518,0.0532,0.0546,0.056,0.0574,0.0588,0.0602,0.0616,0.063,0.0644,0.0658,0.0672,0.0686,0.07,0.0714,0.0728,0.0742,0.0756,0.077,0.0784,0.0798,0.0812,0.0826,0.084,0.0854,0.0868,0.0882,0.0896,0.091,0.0924,0.0938,0.0952,0.0966,0.098,0.0994,0.1008,0.1022,0.1036,0.105,0.1064,0.1078,0.1092,0.1106,0.112</outputPoints>
+                <inputPrecision>0.01</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>5000</reactionWindow>
+            </application>
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>S3:FeedbackLoop:CATACT-02</name>
+                <enabled>false</enabled>
+                <inputPV>A:ID-S3:Wig:01:Position:Readback</inputPV>
+                <outputPV>A:SR-S3:PS:MCV-03:Current:Setpoint</outputPV>
+                <differential>true</differential>
+                <breakPoints>1,1.02,1.04,1.06,1.08,1.1,1.12,1.14,1.16,1.18,1.2,1.22,1.24,1.26,1.28,1.3,1.32,1.34,1.36,1.38,1.4,1.42,1.44,1.46,1.48,1.5,1.52,1.54,1.56,1.58,1.6,1.62,1.64,1.66,1.68,1.7,1.72,1.74,1.76,1.78,1.8,1.82,1.84,1.86,1.88,1.9,1.92,1.94,1.96,1.98,2,2.02,2.04,2.06,2.08,2.1,2.12,2.14,2.16,2.18,2.2,2.22,2.24,2.26,2.28,2.3,2.32,2.34,2.36,2.38,2.4,2.42,2.44,2.46,2.48,2.5,2.52,2.54,2.56,2.58,2.6</breakPoints>
+                <outputPoints>0,0,0.0014,0.0028,0.0042,0.0056,0.007,0.0084,0.0098,0.0112,0.0126,0.014,0.0154,0.0168,0.0182,0.0196,0.021,0.0224,0.0238,0.0252,0.0266,0.028,0.0294,0.0308,0.0322,0.0336,0.035,0.0364,0.0378,0.0392,0.0406,0.042,0.0434,0.0448,0.0462,0.0476,0.049,0.0504,0.0518,0.0532,0.0546,0.056,0.0574,0.0588,0.0602,0.0616,0.063,0.0644,0.0658,0.0672,0.0686,0.07,0.0714,0.0728,0.0742,0.0756,0.077,0.0784,0.0798,0.0812,0.0826,0.084,0.0854,0.0868,0.0882,0.0896,0.091,0.0924,0.0938,0.0952,0.0966,0.098,0.0994,0.1008,0.1022,0.1036,0.105,0.1064,0.1078,0.1092,0.1106,0.112</outputPoints>
+                <inputPrecision>0.01</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application>
+-->
+
+
+<!--
+Update 20160225
+CatACT ByPass ( CATACTEL - CATACT Electronic LOAD)
+Correction values according to the following table:
+
+B [T]       DQ4 [A]
+
+0.00    0.00
+0.01    0.00
+0.40    0.22
+0.80    0.86
+1.00    1.35
+1.20    1.94
+1.40    2.65
+1.60    3.46
+1.80    4.37
+2.00    5.40
+2.20    6.52
+2.40    7.78
+2.49    8.44
+2.60    9.13
+ >      9.13
+-->
+
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>S3:FeedbackLoop:CATACT-03</name>
+                <enabled>false</enabled>
+                <inputPV>A:ID-S3:Wig:01:Position:Readback</inputPV>
+                <outputPV>A:SR-S3:EL:01:Current:Setpoint</outputPV>
+                <differential>false</differential>
+                <breakPoints>0.00,0.01,0.40,0.80,1.00,1.20,1.40,1.60,1.80,2.00,2.20,2.40,2.49,2.60</breakPoints>
+                <outputPoints>0.00,0.00,0.22,0.86,1.35,1.94,2.65,3.46,4.37,5.40,6.52,7.78,8.44,9.13,9.13</outputPoints>                
+		<!-- old Values 20160225
+                <breakPoints>0.00,0.01,0.40,0.80,1.00,1.20,1.40,1.60,1.80,2.00,2.20,2.40,2.49,2.60</breakPoints>
+                <outputPoints>0.00,0.00,0.18,0.70,1.10,1.58,2.16,2.82,3.56,4.40,5.32,6.34,6.88,7.44,7.44</outputPoints>
+                -->                
+		<!-- old Values 2015106
+                <breakPoints>0,0.01,0.5,1,1.55,1.75,2,2.255,2.5</breakPoints>
+                <outputPoints>0,0,0.25,1,2.2,3,3.9,4.9,6,6</outputPoints>
+                -->
+                <inputPrecision>0.01</inputPrecision>
+                <outputPrecision>0.01</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application>
+
+            <group name="FL Cat-Act Sums" path="S3:FeedbackLoopSum:CATACT-01:">
+                <substitutions><pref>A:ID-S3:FeedbackLoop:CATACT-</pref></substitutions>
+                <record>
+                    <name>Enabled</name>
+                    <type>DBR_BYTE</type>
+                    <processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+                        <input>
+                            <!--   <links>${pref}01:Enabled,${pref}02:Enabled,${pref}03:Enabled</links> -->
+                            <links>${pref}03:Enabled</links>
+                        </input>
+                    </processor>
+                </record>
+                <record>
+                    <name>InSync</name>
+                    <type>DBR_BYTE</type>
+                    <processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+                        <input>
+                            <!--  <links>${pref}01:InSync,${pref}02:InSync,${pref}03:InSync</links> -->
+                            <links>${pref}03:InSync</links>
+                        </input>
+                    </processor>
+                </record>
+                <record>
+                    <name>Status:ErrorSum</name>
+                    <type>DBR_BYTE</type>
+                    <processor instance="com.kriznar.csshell.epics.server.processor.ORValueProcessor">
+                        <input>
+                            <!-- <links>${pref}01:Status:ErrorSum,${pref}02:Status:ErrorSum,${pref}03:Status:ErrorSum</links> -->
+                            <links>${pref}03:Status:ErrorSum</links>
+                        </input>
+                    </processor>
+                </record>
+            </group>
+    </group>
+
+
+        <group name="BBB Feedback Loop" path="A:SR">
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>:FeedbackLoop:BBB-01</name>
+                <enabled>false</enabled>
+                <inputPV>A:SR:BeamInfo:01:Current</inputPV>
+                <outputPV>A:SR:BBB:01:Z:FBELT:SERVO:MODE</outputPV>
+                <breakPoints>10</breakPoints>
+                <outputPoints>0,1</outputPoints>
+                <inputPrecision>0.001</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application>
+        </group>
+
+        <group name="RF Temp Feedback" path="A:SR:FeedbackLoop:">
+
+            <group name="rftemp_template" template="true">
+                <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                    <name>RFTemp-${idx}</name>
+                    <enabled>false</enabled>
+                    <inputPV>A:SR-${sec}:LLRF:01:BRD1:SETPT:AMP</inputPV>
+                    <outputPV>ACS:RFCOOL_${sec}.0${el}:heaterTemp${temp}</outputPV>
+                    <breakPoints>300</breakPoints>
+                    <outputPoints>70, 40</outputPoints>
+                    <inputPrecision>0.01</inputPrecision>
+                    <outputPrecision>0.001</outputPrecision>
+                    <reactionWindow>12000</reactionWindow>
+                </application>
+            </group>
+
+            <group><substitutions><sec>S2</sec><el>1</el><temp>1</temp><idx>01</idx></substitutions><insert>rftemp_template</insert></group>
+            <group><substitutions><sec>S2</sec><el>1</el><temp>2</temp><idx>02</idx></substitutions><insert>rftemp_template</insert></group>
+            <group><substitutions><sec>S2</sec><el>2</el><temp>1</temp><idx>03</idx></substitutions><insert>rftemp_template</insert></group>
+            <group><substitutions><sec>S2</sec><el>2</el><temp>2</temp><idx>04</idx></substitutions><insert>rftemp_template</insert></group>
+            <group><substitutions><sec>S4</sec><el>1</el><temp>1</temp><idx>05</idx></substitutions><insert>rftemp_template</insert></group>
+            <group><substitutions><sec>S4</sec><el>1</el><temp>2</temp><idx>06</idx></substitutions><insert>rftemp_template</insert></group>
+            <group><substitutions><sec>S4</sec><el>2</el><temp>1</temp><idx>07</idx></substitutions><insert>rftemp_template</insert></group>
+            <group><substitutions><sec>S4</sec><el>2</el><temp>2</temp><idx>08</idx></substitutions><insert>rftemp_template</insert></group>
+
+            <group name="RF Temp Sums" path="RFTempSum-01:">
+                <substitutions><pref>A:SR:FeedbackLoop:RFTemp-</pref></substitutions>
+                <record>
+                    <name>Enabled</name>
+                    <type>DBR_BYTE</type>
+                    <processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+                        <input>
+                            <links>${pref}01:Enabled,${pref}02:Enabled,${pref}03:Enabled,${pref}04:Enabled,${pref}05:Enabled,${pref}06:Enabled,${pref}07:Enabled,${pref}08:Enabled</links>
+                        </input>
+                    </processor>
+                </record>
+                <record>
+                    <name>InSync</name>
+                    <type>DBR_BYTE</type>
+                    <processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
+                        <input>
+                            <links>${pref}01:InSync,${pref}02:InSync,${pref}03:InSync,${pref}04:InSync,${pref}05:InSync,${pref}06:InSync,${pref}07:InSync,${pref}08:InSync</links>
+                        </input>
+                    </processor>
+                </record>
+                <record>
+                    <name>Status:ErrorSum</name>
+                    <type>DBR_BYTE</type>
+                    <processor instance="com.kriznar.csshell.epics.server.processor.ORValueProcessor">
+                        <input>
+                            <links>${pref}01:Status:ErrorSum,${pref}02:Status:ErrorSum,${pref}03:Status:ErrorSum,${pref}04:Status:ErrorSum,${pref}05:Status:ErrorSum,${pref}06:Status:ErrorSum,${pref}07:Status:ErrorSum,${pref}08:Status:ErrorSum</links>
+                        </input>
+                    </processor>
+                </record>
+            </group>
+        </group>
+    </server>
 </config>

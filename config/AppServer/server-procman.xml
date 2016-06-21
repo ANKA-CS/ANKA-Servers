@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+
+	<server name="ankasr-serv">
+	
+		<management>
+			<name>A:${host}:ProcMan</name>
+		</management>
+	
+        <group name="Process Manager" path="A:GL:ProcMan">
+        	<group template="true" name="procman">
+	            <application instance="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerApplication">
+	                <name>:${sr}-01</name>
+	                <description>${dsc}</description>
+	                <process_pattern>${pp}</process_pattern>
+					<start>${st}</start>
+					<stop>${sp}</stop>
+	            </application>
+        	</group>
+        
+        	<group><substitutions><dsc>Beam Info</dsc><sr>ioc-beaminfo</sr><pp>\/linux-x86_64\/BeamInfo st\.cmd</pp><st>ioc-beaminfo start</st><sp>ioc-beaminfo stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Signal Generator</dsc><sr>ioc-ssg-sg</sr><pp>\/linux-x86_64\/SignalGenerator st\.cmd</pp><st>ioc-ssg-sg start</st><sp>ioc-ssg-sg stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Alarm-ActiveMQ</dsc><sr>apache-activemq</sr><pp>(apache-activemq\/bin\/run\.jar start)$</pp><st>apache-activemq start</st><sp>apache-activemq stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Alarm-JMS2RDB</dsc><sr>css-jms2rdb</sr><pp>^(\/bin\/sh).*\/jms2rdb\/run\.sh</pp><st>css-jms2rdb start</st><sp>css-jms2rdb stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Alarm-CSS</dsc><sr>css-alarm-server</sr><pp>^(\/bin\/sh).*\/alarm-server\/run\.sh</pp><st>css-alarm-server start</st><sp>css-alarm-server stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Alarm-ANKA</dsc><sr>anka-alarm-server</sr><pp>\/ANKA-Servers\/.*\/bin\/java .*AppServer-alarms\.properties</pp><st>anka-alarm-server start</st><sp>anka-alarm-server stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>App Server</dsc><sr>anka-app-server</sr><pp>\/ANKA-Servers\/.*\/bin\/java .*AppServer.properties</pp><st>anka-app-server start</st><sp>anka-app-server stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>AppAux Server</dsc><sr>anka-appaux-server</sr><pp>\/ANKA-Servers\/.*\/bin\/java .*AppServer-aux.properties</pp><st>anka-appaux-server start</st><sp>anka-appaux-server stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Fast OC</dsc><sr>fastoc-server</sr><pp>\/ANKA-Servers\/.*\/bin\/java .*(server\.app\.FastModeOCServer)$</pp><st>fastoc-server start</st><sp>fastoc-server stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Custom OC</dsc><sr>customoc-server</sr><pp>\/ANKA-Servers\/.*\/bin\/java .*(server\.app\.FastModeOCServer CustomOC)$</pp><st>customoc-server start</st><sp>customoc-server stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Save &amp; Restore</dsc><sr>snr-server</sr><pp>\/SaveAndRestore\/.*\/bin\/java .*(\/SnrConfiguration\.xml)$</pp><st>snr-server start</st><sp>snr-server stop</sp></substitutions><insert>procman</insert></group>
+		<group><substitutions><dsc>Orbit Server</dsc><sr>anka-orbit-server</sr><pp>\/ANKA-Servers\/.*\/bin\/java .*AppServer-orbit.properties</pp><st>/bin/sh /home/operator/bin/anka-orbit-server start</st><sp>anka-orbit-server stop</sp></substitutions><insert>procman</insert></group>
+        </group>
+	</server>
+
+	<server name="ankasr-main">
+	
+		<management>
+			<name>A:${host}:ProcMan</name>
+		</management>
+	
+        <group name="Process Manager" path="A:GL:ProcMan">
+        	<group template="true" name="procman">
+	            <application instance="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerApplication">
+	                <name>:${sr}-01</name>
+	                <description>${dsc}</description>
+	                <process_pattern>${pp}</process_pattern>
+					<start>${st}</start>
+					<stop>${sp}</stop>
+	            </application>
+        	</group>
+        
+        	<group><substitutions><dsc>Lead Glass Counter</dsc><sr>ioc-leadglasscounter</sr><pp>\/linux-x86_64\/LeadGlassCounter st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Archive Server</dsc><sr>css-archive-server</sr><pp>^(java ).*org\.eclipse\.equinox\.launcher.*-archive-url cassandra:\/\/</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>CAS Gateway Inj</dsc><sr>casgateway-injector</sr><pp>^(\/usr\/.*\/bin\/java ).*AcsSystemClassLoader .*casgateway\.Main file:\/\/.*config-injector\.xml</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>CAS Gateway SR</dsc><sr>casgateway-sr</sr><pp>^(\/usr\/.*\/bin\/java ).*AcsSystemClassLoader .*casgateway\.Main file:\/\/.*config-storage-ring\.xml</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>CA Gateway</dsc><sr>cagateway</sr><pp>^(gateway).*(Server:AnkaSrMain: -archive)$</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        </group>
+	</server>
+
+	<server name="ankasr-epics01">
+	
+		<management>
+			<name>A:${host}:ProcMan</name>
+		</management>
+	
+        <group name="Process Manager" path="A:GL:ProcMan">
+        	<group template="true" name="procman">
+	            <application instance="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerApplication">
+	                <name>:${sr}-01</name>
+	                <description>${dsc}</description>
+	                <process_pattern>${pp}</process_pattern>
+					<start>${st}</start>
+					<stop>${sp}</stop>
+	            </application>
+        	</group>
+        
+        	<group><substitutions><dsc>ACS PS Adapter</dsc><sr>ioc-acs-ps-adapter</sr><pp>\/linux-x86_64\/AcsPSAdapter st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Agilent Ion Pump</dsc><sr>ioc-agilent-ion-pump</sr><pp>\/linux-x86_64\/IonPump st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>BBB Global Manager</dsc><sr>ioc-bbb-global</sr><pp>\/linux-x86_64\/BBBGlobal st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>BPM Global Manager</dsc><sr>ioc-bpm-global</sr><pp>\/linux-x86_64\/BPMGlobal st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>BPM Really Slow Acq.</dsc><sr>ioc-bpm-rsa</sr><pp>\/opt\/epics\/base-3\.14\.12\.5\/bin\/linux-x86_64\/softIoc st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Daresbury Wiggler</dsc><sr>ioc-daresbury-wiggler</sr><pp>\/linux-x86_64\/DaresburyWiggler st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>ITech Electric Load</dsc><sr>ioc-el-itech</sr><pp>\/linux-x86_64\/ITechElectricLoad st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Insertion-Device Scraper</dsc><sr>ioc-id-scraper</sr><pp>\/linux-x86_64\/IDScraper st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>LLRF Booster</dsc><sr>ioc-llrf-booster</sr><pp>\/linux-x86_64\/LLRFBooster st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>LLRF Global</dsc><sr>ioc-llrf-global</sr><pp>\/linux-x86_64\/LLRF st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Matrix Video Switch</dsc><sr>ioc-matrix-switch</sr><pp>\/linux-x86_64\/PelcoCM6800MatrixSwitch st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Operation Status</dsc><sr>ioc-operationstatus</sr><pp>\/linux-x86_64\/OperationStatus st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>PS Setpoint-Readback Check</dsc><sr>ioc-ps-check</sr><pp>\/linux-x86_64\/PSCheck st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Kepco PS</dsc><sr>ioc-ps-kepco</sr><pp>\/linux-x86_64\/KepcoPS st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Booster RF PLC</dsc><sr>ioc-booster-rf-plc</sr><pp>\/linux-x86_64\/BoosterRFPLC st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Booster RF Amplifier</dsc><sr>ioc-rfamplifier-booster</sr><pp>\/linux-x86_64\/BoosterRFAmplifier st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Scraper</dsc><sr>ioc-scraper</sr><pp>\/linux-x86_64\/Scraper st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>CAT-ACT Wiggler</dsc><sr>ioc-scw1</sr><pp>^(\/bin\/sh).*(\/SCW1\/iocBoot\/iocscw\/run)$</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>CLIC Wiggler</dsc><sr>ioc-scw2</sr><pp>^(\/bin\/sh).*(\/SCW2\/iocBoot\/iocscw\/run)$</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>SLM Filter Wheel</dsc><sr>ioc-slm-filterWheel</sr><pp>\/linux-x86_64\/FilterWheel st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>S&amp;R Filter</dsc><sr>ioc-snrfilter</sr><pp>\/linux-x86_64\/SnRFilter st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>SUL Wiggler</dsc><sr>ioc-sul-wiggler</sr><pp>\/linux-x86_64\/SULWiggler st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        <!--<group><substitutions><dsc>LLRF Control Booster</dsc><sr>ioc-llrf-control-booster</sr><pp>\/linux-x86_64\/ st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>LLRF Control Service</dsc><sr>ioc-llrf-control-service</sr><pp>\/linux-x86_64\/ st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>LLRF Waveforms</dsc><sr>ioc-llrf-waveforms</sr><pp>\/linux-x86_64\/ st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Multi Bunch Instability Mode Monitor - X</dsc><sr>ioc-modemonitor-X</sr><pp>\/linux-x86_64\/ st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Multi Bunch Instability Mode Monitor - Y</dsc><sr>ioc-modemonitor-Y</sr><pp>\/linux-x86_64\/ st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	<group><substitutions><dsc>Multi Bunch Instability Mode Monitor - Z</dsc><sr>ioc-modemonitor-Z</sr><pp>\/linux-x86_64\/ st\.cmd</pp><st>${sr} start</st><sp>${sr} stop</sp></substitutions><insert>procman</insert></group>
+        	-->
+        </group>
+	</server>
+
+</config>

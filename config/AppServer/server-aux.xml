@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd">
+
+	<server name="AppsAux">
+	
+		<management>
+			<name>A:${host}:${server}</name>
+		</management>
+
+
+		<group name="PS Cycling" path="A:">
+			<group name="pscycle_template" template="true">
+				<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication">
+					<name>${sec}:PSCycle:${mag}-${num}</name>
+					<device>A:${sec}:PS:M${mag}-${num}</device>
+				</application>
+			</group>
+
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>05</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>10</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>B</mag><num>11</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>QV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>QV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>Sol</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>Sol</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>Sol</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>05</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>09</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CH</mag><num>10</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>05</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>09</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>MI</sec><mag>CV</mag><num>10</num></substitutions><insert>pscycle_template</insert></group>			
+
+			<group><substitutions><sec>IL</sec><mag>B</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>Q</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>Q</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>Q</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>Q</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>Q</mag><num>05</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CH</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CH</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CH</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CV</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>IL</sec><mag>CV</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			
+			<group><substitutions><sec>BO</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>BO</sec><mag>CH</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>BO</sec><mag>CH</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>BO</sec><mag>CH</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>BO</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>BO</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>BO</sec><mag>CV</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>BO</sec><mag>CV</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			
+			<group><substitutions><sec>EL</sec><mag>B</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>B</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>05</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>Q</mag><num>09</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CH</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CH</mag><num>05</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CH</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CV</mag><num>05</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>EL</sec><mag>CV</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			
+			<group><substitutions><sec>SR</sec><mag>B</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR</sec><mag>Q1</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR</sec><mag>Q2</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR</sec><mag>Q3</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR</sec><mag>Q4</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR</sec><mag>Q5</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR</sec><mag>SH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR</sec><mag>SV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+
+			<group><substitutions><sec>SR-S1</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CH</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CH</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CH</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CH</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CH</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CH</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+
+			<group><substitutions><sec>SR-S1</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CV</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S1</sec><mag>CV</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			
+			<group><substitutions><sec>SR-S2</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CH</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CH</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CH</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CH</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CH</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CH</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+
+			<group><substitutions><sec>SR-S2</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CV</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S2</sec><mag>CV</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			
+			<group><substitutions><sec>SR-S3</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CH</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CH</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CH</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CH</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CH</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CH</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+
+			<group><substitutions><sec>SR-S3</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CV</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S3</sec><mag>CV</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+		
+			<group><substitutions><sec>SR-S4</sec><mag>CH</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CH</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CH</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CH</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CH</mag><num>06</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CH</mag><num>07</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CH</mag><num>08</num></substitutions><insert>pscycle_template</insert></group>			
+
+			<group><substitutions><sec>SR-S4</sec><mag>CV</mag><num>01</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CV</mag><num>02</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CV</mag><num>03</num></substitutions><insert>pscycle_template</insert></group>			
+			<group><substitutions><sec>SR-S4</sec><mag>CV</mag><num>04</num></substitutions><insert>pscycle_template</insert></group>			
+			
+		</group>
+		
+		<group name="Cycling Master" path="A:">
+			<substitutions>
+				<mi>A:MI:PSCycle:</mi>
+				<il>A:IL:PSCycle:</il>
+				<bo>A:BO:PSCycle:</bo>
+				<el>A:EL:PSCycle:</el>
+				<sr>A:SR:PSCycle:</sr>
+				<s1>A:SR-S1:PSCycle:</s1>
+				<s2>A:SR-S2:PSCycle:</s2>
+				<s3>A:SR-S3:PSCycle:</s3>
+				<s4>A:SR-S4:PSCycle:</s4>
+			</substitutions>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster">
+				<name>MI:PSCycleMaster:01</name>
+				<delegates>${mi}B-01,${mi}B-02,${mi}B-03,${mi}B-04,${mi}B-05,${mi}B-06,${mi}B-07,${mi}B-08,${mi}B-10,${mi}B-11,${mi}QV-01,${mi}QV-02,${mi}Sol-01,${mi}Sol-02,${mi}Sol-03</delegates>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster">
+				<name>MI:PSCycleMaster:02</name>
+				<delegates>${mi}CH-01,${mi}CH-03,${mi}CH-04,${mi}CH-05,${mi}CH-06,${mi}CH-07,${mi}CH-08,${mi}CH-09,${mi}CH-10,${mi}CV-01,${mi}CV-02,${mi}CV-03,${mi}CV-04,${mi}CV-05,${mi}CV-06,${mi}CV-07,${mi}CV-08,${mi}CV-09,${mi}CV-10</delegates>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster">
+				<name>IL:PSCycleMaster:01</name>
+				<delegates>${bo}CH-01,${bo}CH-02,${bo}CH-03,${bo}CH-04,${bo}CV-01,${bo}CV-02,${bo}CV-03,${bo}CV-04</delegates>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster">
+				<name>BO:PSCycleMaster:01</name>
+				<delegates>${il}B-01,${il}Q-01,${il}Q-02,${il}Q-03,${il}Q-04,${il}Q-05,${il}CH-01,${il}CH-02,${il}CH-03,${il}CH-04,${il}CV-01,${il}CV-02,${il}CV-03,${il}CV-04</delegates>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster">
+				<name>EL:PSCycleMaster:01</name>
+				<delegates>${el}B-01,${el}B-02,${el}Q-01,${el}Q-02,${el}Q-03,${el}Q-04,${el}Q-05,${el}Q-06,${el}Q-07,${el}Q-08,${el}Q-09,${el}CH-01,${el}CH-02,${el}CH-05,${el}CH-06,${el}CV-01,${el}CV-02,${el}CV-05,${el}CV-06</delegates>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster">
+				<name>SR:PSCycleMaster:01</name>
+				<delegates>${sr}B-01,${sr}Q1-01,${sr}Q2-01,${sr}Q3-01,${sr}Q4-01,${sr}Q5-01,${sr}SH-01,${sr}SV-01</delegates>
+			</application>
+			<application instance="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster">
+				<name>SR:PSCycleMaster:02</name>
+				<delegates>${s1}CH-01,${s1}CH-02,${s1}CH-03,${s1}CH-04,${s1}CH-06,${s1}CH-07,${s1}CH-08,${s1}CV-01,${s1}CV-02,${s1}CV-03,${s1}CV-04,${s2}CH-01,${s2}CH-02,${s2}CH-03,${s2}CH-04,${s2}CH-06,${s2}CH-07,${s2}CH-08,${s2}CV-01,${s2}CV-02,${s2}CV-03,${s2}CV-04,${s3}CH-01,${s3}CH-02,${s3}CH-03,${s3}CH-04,${s3}CH-06,${s3}CH-07,${s3}CH-08,${s3}CV-01,${s3}CV-02,${s3}CV-03,${s3}CV-04,${s4}CH-01,${s4}CH-02,${s4}CH-03,${s4}CH-04,${s4}CH-06,${s4}CH-07,${s4}CH-08,${s4}CV-01,${s4}CV-02,${s4}CV-03,${s4}CV-04</delegates>
+			</application>
+		</group>
+		
+		
+		
+		<group name="PS Group Injector" path="A:EL:PSGroup:">
+			<application instance="com.kriznar.csshell.epics.server.application.devicegroup.DeviceGroupApplication">
+				<name>01</name>
+				<devices>A:IL:PS:MB-01,A:EL:PS:MB-01,A:EL:PS:MB-02,A:EL:PS:MQ-01,A:EL:PS:MQ-02,A:EL:PS:MQ-03,A:EL:PS:MQ-04,A:EL:PS:MQ-05,A:EL:PS:MQ-06,A:EL:PS:MQ-07,A:EL:PS:MQ-08,A:EL:PS:MQ-09</devices>
+			</application>
+		</group>
+		
+		<group name="Beam Info" path="A:SR:BeamInfo:01:">
+			<record>
+				<name>Current:Plot1s</name>
+				<type>DBR_DOUBLE</type>
+				<units>mA</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>1000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Current</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Current:Plot15s</name>
+				<type>DBR_DOUBLE</type>
+				<units>mA</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>15000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Current</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Current:Plot1m</name>
+				<type>DBR_DOUBLE</type>
+				<units>mA</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>60000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Current</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Lifetime:Plot1s</name>
+				<type>DBR_DOUBLE</type>
+				<units>h</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>1000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Lifetime</link>
+					</input>
+					<filter>AVG</filter>
+					<transform>
+						<x0>0.0</x0>
+						<x1>0.000277778</x1>
+					</transform>
+				</processor>
+			</record>
+			<record>
+				<name>Lifetime:Plot15s</name>
+				<type>DBR_DOUBLE</type>
+				<units>h</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>15000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Lifetime</link>
+					</input>
+					<filter>AVG</filter>
+					<transform>
+						<x0>0.0</x0>
+						<x1>0.000277778</x1>
+					</transform>
+				</processor>
+			</record>
+			<record>
+				<name>Lifetime:Plot1m</name>
+				<type>DBR_DOUBLE</type>
+				<units>h</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>60000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Lifetime</link>
+					</input>
+					<filter>AVG</filter>
+					<transform>
+						<x0>0.0</x0>
+						<x1>0.000277778</x1>
+					</transform>
+				</processor>
+			</record>
+			<record>
+				<name>Energy:Plot1s</name>
+				<type>DBR_DOUBLE</type>
+				<units>GeV</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>1000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Energy</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Energy:Plot15s</name>
+				<type>DBR_DOUBLE</type>
+				<units>Gev</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>15000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Energy</link>
+					</input>
+				</processor>
+			</record>
+			<record>
+				<name>Energy:Plot1m</name>
+				<type>DBR_DOUBLE</type>
+				<units>GeV</units>
+				<processor instance="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor">
+					<trigger>60000</trigger>
+					<input>
+						<link>A:SR:BeamInfo:01:Energy</link>
+					</input>
+				</processor>
+			</record>
+		</group>
+		
+		<group name="Machine" path="A:GL:Machine:01:">
+			<record>
+				<name>Clock</name>
+				<type>DBR_STRING</type>
+				<description>Current UTC time as ISO string.</description>
+   				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+				</processor>
+			</record>
+			<record>
+				<name>Clock:Unix</name>
+				<type>DBR_INT</type>
+				<description>Current UTC time in seconds, known as Unix or Epoch time.</description>
+				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+					<trigger>1000</trigger>
+					<format>UNIX</format>
+				</processor>
+			</record>
+			<record>
+				<name>Clock:ISO</name>
+				<type>DBR_STRING</type>
+				<description>Current UTC time as ISO string.</description>
+   				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+					<trigger>1000</trigger>
+					<format>yyyy-MM-dd'T'HH:mm:ss.SSSZ</format>
+				</processor>
+			</record>
+			<record>
+				<name>Clock:DateTime</name>
+				<type>DBR_STRING</type>
+				<description>Current UTC time as date-time custom formated string.</description>
+				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+					<trigger>1000</trigger>
+					<format>yyyy-MM-dd HH:mm:ss</format>
+				</processor>
+			</record>
+			<record>
+				<name>Clock:Time</name>
+				<type>DBR_STRING</type>
+				<description>Current UTC time as date-time custom formated string.</description>
+				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+					<trigger>1000</trigger>
+					<format>HH:mm:ss</format>
+				</processor>
+			</record>
+			
+			<record>
+				<name>OC:SemaphoreLock</name>
+				<processor instance="com.kriznar.csshell.epics.server.processor.SemaphoreProcessor">
+				</processor>
+			</record>
+			
+		</group>
+		
+	</server>
+
+</config>

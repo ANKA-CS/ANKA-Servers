@@ -9,66 +9,178 @@
 			<name>A:${host}:${server}</name>
 		</management>
 		
-		<group name="TEST">
-
-		<group name="RF Temp Feedback" path="A:SR:FeedbackLoop:">
-
-			<group name="rftemp_template" template="true">			
-				<application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
-					<name>RFTemp-${idx}</name>
-					<enabled>false</enabled>
-					<outputPV>ACS:RFCOOL_${sec}.0${el}:heaterTemp${temp}</outputPV>
-					<inputPV>ACS:RFAPL_${sec}.01:voltage</inputPV>
-					<outputPoints>40,70</outputPoints>
-					<breakPoints>200</breakPoints>
-					<precision>0.001</precision>
-					<reactionWindow>3000</reactionWindow>
-				</application>
-			</group>
-			
-			<group><substitutions><sec>S2</sec><el>1</el><temp>1</temp><idx>01</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S2</sec><el>1</el><temp>2</temp><idx>02</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S2</sec><el>2</el><temp>1</temp><idx>03</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S2</sec><el>2</el><temp>2</temp><idx>04</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>1</el><temp>1</temp><idx>05</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>1</el><temp>2</temp><idx>06</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>2</el><temp>1</temp><idx>07</idx></substitutions><insert>rftemp_template</insert></group>
-			<group><substitutions><sec>S4</sec><el>2</el><temp>2</temp><idx>08</idx></substitutions><insert>rftemp_template</insert></group>
-			
-			<group name="RF Temp Sums" path="RFTempSum-01:">
-				<substitutions><pref>A:SR:FeedbackLoop:RFTemp-</pref></substitutions>
-				<record>
-					<name>Enabled</name>
-					<type>DBR_BYTE</type>
-					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
-						<input>
-							<links>${pref}01:Enabled,${pref}02:Enabled,${pref}03:Enabled,${pref}04:Enabled,${pref}05:Enabled,${pref}06:Enabled,${pref}07:Enabled,${pref}08:Enabled</links>
-						</input>
-					</processor>
-				</record>
-				<record>
-					<name>InSync</name>
-					<type>DBR_BYTE</type>
-					<processor instance="com.kriznar.csshell.epics.server.processor.ANDValueProcessor">
-						<input>
-							<links>${pref}01:InSync,${pref}02:InSync,${pref}03:InSync,${pref}04:InSync,${pref}05:InSync,${pref}06:InSync,${pref}07:InSync,${pref}08:InSync</links>
-						</input>
-					</processor>
-				</record>
-				<record>
-					<name>Status:ErrorSum</name>
-					<type>DBR_BYTE</type>
-					<processor instance="com.kriznar.csshell.epics.server.processor.ORValueProcessor">
-						<input>
-							<links>${pref}01:Status:ErrorSum,${pref}02:Status:ErrorSum,${pref}03:Status:ErrorSum,${pref}04:Status:ErrorSum,${pref}05:Status:ErrorSum,${pref}06:Status:ErrorSum,${pref}07:Status:ErrorSum,${pref}08:Status:ErrorSum</links>
-						</input>
-					</processor>
-				</record>
-			</group>
-		</group>
+		
+		<group name="Test" path="A:ID-">
+            <application instance="com.kriznar.csshell.epics.server.application.SteppingFeedbackLoopApplication">
+                <name>S1:FeedbackLoop:SUL15-03</name>
+                <enabled>false</enabled>
+                <inputPV>A:SR-S4:BPM:01:SA:X</inputPV>
+                <outputPV>A:ID-S1:SCU15:PSMCH-01:Current:Setpoint</outputPV>
+                <triggerPV>A:ID-S1:SCU15:01:MainCoils:PS:Current:Readback</triggerPV>
+                <inputPrecision>0.02</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <triggerPrecision>0.1</triggerPrecision>
+                <outputMin>0.0</outputMin>
+                <outputMax>2.0</outputMax>
+                <triggerWindow>40000</triggerWindow>
+                <minStep>-0.001</minStep>
+                <maxStep>-0.010</maxStep>
+                <minStepInputDelta>0.02</minStepInputDelta>
+                <maxStepInputDelta>0.2</maxStepInputDelta>
+                <controlDelay>300</controlDelay>
+            </application>
 		</group>
 
 
+	</server>
+	
+	<server name="SemapthoreTest">
+		
+		<management>
+		</management>
+	
+		<group name="Semaphore">
+		  <record>
+		    <name>A:TEST:Machine:01:SemaphoreLock</name>
+		    <processor instance="com.kriznar.csshell.epics.server.processor.SemaphoreProcessor">
+		    </processor>
+		  </record>
+		</group>
+	</server>
+
+	<server name="AlarmTest">
+		
+		<management>
+		</management>
+	
+		<group name="LLRF">
+		  <record>
+		    <name>A:SR-S2:LLRF:01:BRD1:INTERLOCK:Alarm1</name>
+		    <type>DBR_DOUBLE</type>
+		    <alarmConf>
+		      <path>Storage Ring,RF,LLRF S2</path>
+		      <description>SR RF Interlocks</description>
+		      <latching>true</latching>
+		    </alarmConf>
+		    <processor instance="com.kriznar.csshell.epics.server.processor.ValueLevelAlarmProcessor">
+		      <input><links>A:SR-S2:LLRF:01:BRD1:INTERLOCK</links></input>
+		      <precision>0.01</precision>
+		      <default>
+			<severity>NO_ALARM</severity>
+			<status>NO_ALARM</status>
+		      </default>
+		      <lowerAlarm>
+			<limit>-1.0</limit>
+			<severity>MAJOR_ALARM</severity>
+			<status>LOLO_ALARM</status>
+		      </lowerAlarm>
+		      <lowerWarning>
+			<limit>-1.0</limit>
+			<severity>MINOR_ALARM</severity>
+			<status>LOW_ALARM</status>
+		      </lowerWarning>
+		      <upperWarning>
+			<limit>2.0</limit>
+			<severity>MINOR_ALARM</severity>
+			<status>HIGH_ALARM</status>
+		      </upperWarning>
+		      <upperAlarm>
+			<limit>1.0</limit>
+			<severity>MAJOR_ALARM</severity>
+			<status>HIHI_ALARM</status>
+		      </upperAlarm>
+		    </processor>
+		  </record>
+		</group>
+	
+		</server>
+	
+	<server name="ClockTest">
+		
+		<management>
+		</management>
+
+		<group name="Machine" path="A:TEST:Machine:01:">
+			<record>
+				<name>Clock</name>
+				<type>DBR_STRING</type>
+				<description>Current UTC time as ISO string.</description>
+   				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+				</processor>
+			</record>
+			<record>
+				<name>Clock:Unix</name>
+				<type>DBR_INT</type>
+				<description>Current UTC time in seconds, known as Unix or Epoch time.</description>
+				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+					<trigger>1000</trigger>
+					<format>UNIX</format>
+				</processor>
+			</record>
+			<record>
+				<name>Clock:ISO</name>
+				<type>DBR_STRING</type>
+				<description>Current UTC time as ISO string.</description>
+   				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+					<trigger>1000</trigger>
+					<format>yyyy-MM-dd'T'HH:mm:ss.SSSZ</format>
+				</processor>
+			</record>
+			<record>
+				<name>Clock:DateTime</name>
+				<type>DBR_STRING</type>
+				<description>Current UTC time as date-time custom formated string.</description>
+				<processor instance="com.kriznar.csshell.epics.server.processor.TimeValueProcessor">
+					<trigger>1000</trigger>
+					<format>yyyy-MM-dd HH:mm:ss</format>
+				</processor>
+			</record>
+		</group>
+		
+	
+	</server>
+	
+	<server name="BBBFeedbackTest">
+	
+        <group name="BBB Feedback Loop" path="A:SR">
+            <application instance="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication">
+                <name>:FeedbackLoop:BBB-02</name>
+                <enabled>false</enabled>
+                <inputPV>A:SR:BeamInfo:01:Current</inputPV>
+                <outputPV>A:SR:BBB:01:Z:FBELT:SERVO:MODE</outputPV>
+                <breakPoints>10</breakPoints>
+                <outputPoints>0,1</outputPoints>
+                <inputPrecision>0.001</inputPrecision>
+                <outputPrecision>0.001</outputPrecision>
+                <reactionWindow>3000</reactionWindow>
+            </application>
+        </group>
+        	
+	</server>
+
+	<server name="ProcessManagerTest">
+	
+        <group name="Process Manager" path="A:GL:ProcMan">
+            <application instance="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerApplication">
+                <name>:Test-01</name>
+                <process_pattern>test\.sh</process_pattern>
+				<start>test.sh</start>
+				<stop>test.sh</stop>
+            </application>
+        </group>
+        	
+	</server>
+
+	<server name="ProcessManagerGroupTest">
+	
+        <group name="Most Linux Services" path="A:GL:ProcManGroup">
+            <application instance="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerGroupApplication">
+                <name>:01</name>
+                <description>Most Linux Services</description>
+                <managers>A:GL:ProcMan:ioc-acs-ps-adapter-01,A:GL:ProcMan:ioc-agilent-ion-pump-01,A:GL:ProcMan:ioc-bbb-global-01,A:GL:ProcMan:ioc-bpm-rsa-01,A:GL:ProcMan:ioc-daresbury-wiggler-01,A:GL:ProcMan:ioc-el-itech-01,A:GL:ProcMan:ioc-id-scraper-01,A:GL:ProcMan:ioc-llrf-booster-01,A:GL:ProcMan:ioc-llrf-global-01,A:GL:ProcMan:ioc-matrix-switch-01,A:GL:ProcMan:ioc-operationstatus-01,A:GL:ProcMan:ioc-ps-check-01,A:GL:ProcMan:ioc-ps-kepco-01,A:GL:ProcMan:ioc-booster-rf-plc-01,A:GL:ProcMan:ioc-rfamplifier-booster-01,A:GL:ProcMan:ioc-scraper-01,A:GL:ProcMan:ioc-scw1-01,A:GL:ProcMan:ioc-scw2-01,A:GL:ProcMan:ioc-slm-filterWheel-01,A:GL:ProcMan:ioc-snrfilter-01,A:GL:ProcMan:ioc-sul-wiggler-01,A:GL:ProcMan:ioc-leadglasscounter-01,A:GL:ProcMan:css-archive-server-01,A:GL:ProcMan:casgateway-injector-01,A:GL:ProcMan:casgateway-sr-01,A:GL:ProcMan:cagateway-01,A:GL:ProcMan:ioc-beaminfo-01,A:GL:ProcMan:ioc-ssg-sg-01,A:GL:ProcMan:apache-activemq-01,A:GL:ProcMan:css-jms2rdb-01,A:GL:ProcMan:css-alarm-server-01,A:GL:ProcMan:anka-alarm-server-01,A:GL:ProcMan:anka-app-server-01,A:GL:ProcMan:anka-appaux-server-01,A:GL:ProcMan:fastoc-server-01,A:GL:ProcMan:customoc-server-01,A:GL:ProcMan:snr-server-01,A:GL:ProcMan:anka-orbit-server-01</managers>
+            </application>
+        </group>
+        	
 	</server>
 
 </config>

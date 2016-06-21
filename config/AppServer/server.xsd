@@ -61,7 +61,7 @@
 	    					Shutdown string is suffix part of management PV,
 	    					which provides shutdown functionality for
 	    					server. If omitted, default value is used:
-	    					":shutdown".
+	    					":Shutdown".
 	    				</xsd:documentation>
 	    			</xsd:annotation>
 	    		</xsd:element>
@@ -72,7 +72,7 @@
 	    					Ping string is suffix part of management PV,
 	    					which provides ping functionality for the
 	    					server. If omitted, default value is used:
-	    					":ping".
+	    					":Ping".
 	    				</xsd:documentation>
 	    			</xsd:annotation>
 	    		</xsd:element>
@@ -80,7 +80,7 @@
 	    			<xsd:annotation>
 	    				<xsd:documentation>List string is suffix part of management PV, which provides list functionality for the server. 
 	Calling this PV will return array of strings with all PV names supported bz the server.
-	If omitted, default value is used: ":list".</xsd:documentation>
+	If omitted, default value is used: ":List".</xsd:documentation>
 	    			</xsd:annotation></xsd:element>
 	    	</xsd:sequence>
 	    </xsd:complexType>
@@ -183,7 +183,7 @@
 	    		<xsd:element name="name" type="xsd:string" maxOccurs="1"
 	    			minOccurs="1">
 	    		</xsd:element>
-	    		<xsd:element name="type" maxOccurs="1" minOccurs="1">
+	    		<xsd:element name="type" maxOccurs="1" minOccurs="0">
 	    			<xsd:simpleType>
 	    				<xsd:restriction base="xsd:string">
 	    					<xsd:enumeration value="DBR_STRING"></xsd:enumeration>
@@ -314,7 +314,7 @@
 	    				<xsd:union>
 	    					<xsd:simpleType>
 	    						<xsd:restriction base="xsd:string">
-	    							<xsd:pattern value="\$\{[^}]+\}"></xsd:pattern>
+	    							<xsd:pattern value="(\$\{)\w+(\})"></xsd:pattern>
 	    						</xsd:restriction>
 	    					</xsd:simpleType>
 	    					<xsd:simpleType>
@@ -337,28 +337,35 @@
 	    		</xsd:element>
 	    		<xsd:choice maxOccurs="unbounded" minOccurs="1">
 	    			<xsd:group ref="pDefaultAlarmProcessorGroup"></xsd:group>
-	    			<xsd:group ref="pStateWatchdogProcessorGroup"></xsd:group>
-	    			<xsd:group ref="pLinkedValueProcessorGroup"></xsd:group>
-	    			<xsd:group ref="pStatusCheckAlarmProcessorGroup"></xsd:group>
-	    			<xsd:group ref="pHostPingAlarmProcessorGroup"></xsd:group>
-	    			<xsd:group ref="pValueDiffCheckProcessorGroup"></xsd:group>
 	    			<xsd:group ref="pHeartbeatValueProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pHostPingAlarmProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pLinkedValueProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pPrecisionProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pStateWatchdogProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pSystemProcessWatchdogProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pStatusCheckAlarmProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pTimeValueProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pValueDiffAlarmProcessorGroup"></xsd:group>
+	    			<xsd:group ref="pValueLevelAlarmProcessorGroup"></xsd:group>
 	    		</xsd:choice>
 	        </xsd:sequence>
 	    	<xsd:attribute name="instance">
 	    		<xsd:simpleType>
 	    			<xsd:restriction base="xsd:string">
-	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.HostPingAlarmProcessor"></xsd:enumeration>
-	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.DefaultAlarmProcessor"></xsd:enumeration>
-	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.MemoryValueProcessor"></xsd:enumeration>
-	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.LinkedValueProcessor"></xsd:enumeration>
 	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.ANDValueProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.DefaultAlarmProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.HostPingAlarmProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.LinkedValueProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.MemoryValueProcessor"></xsd:enumeration>
 	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.ORValueProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.StateWatchdogProcessor"></xsd:enumeration>
 	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.StatusCheckAlarmProcessor"></xsd:enumeration>
 	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.SummaryAlarmProcessor"></xsd:enumeration>
-	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.StateWatchdogProcessor"></xsd:enumeration>
-	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.ValueDiffCheckProcessor"></xsd:enumeration>
-	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.HeartbeatValueProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.SystemProcessWatchdogProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.TimeValueProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.ValueDiffAlarmProcessor"></xsd:enumeration>
+	    				<xsd:enumeration value="com.kriznar.csshell.epics.server.processor.ValueLevelAlarmProcessor"></xsd:enumeration>
 	    			</xsd:restriction>
 	    		</xsd:simpleType>
 	    	</xsd:attribute>
@@ -372,7 +379,15 @@
 		</xsd:sequence>
     </xsd:group>
     
-    <xsd:group name="pValueDiffCheckProcessorGroup">
+    <xsd:group name="pPrecisionProcessorGroup">
+		<xsd:sequence>
+			<xsd:element name="precision"
+				type="doubleOrSubstitutionType" maxOccurs="1" minOccurs="0">
+			</xsd:element>
+		</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="pValueDiffAlarmProcessorGroup">
 		<xsd:sequence>
 			<xsd:element name="device" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
 			<xsd:element name="time_window" type="intOrSubstitutionType"
@@ -381,16 +396,30 @@
 			<xsd:element name="value_window" maxOccurs="1" minOccurs="0"
 				type="doubleOrSubstitutionType">
 			</xsd:element>
-			<xsd:element name="precision"
-				type="doubleOrSubstitutionType" maxOccurs="1" minOccurs="0">
+		</xsd:sequence>
+    </xsd:group>
+    <xsd:group name="pValueLevelAlarmProcessorGroup">
+		<xsd:sequence>
+			<xsd:element name="default" maxOccurs="1" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="severity" type="severityType">
+						</xsd:element>
+						<xsd:element name="status" type="statusType">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
 			</xsd:element>
-			<xsd:element ref="gate" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:element name="lowerAlarm" type="levelAlarmType" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="lowerWarning" type="levelAlarmType" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="upperAlarm" type="levelAlarmType" maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="upperWarning" type="levelAlarmType" maxOccurs="1" minOccurs="0"></xsd:element>
 		</xsd:sequence>
     </xsd:group>
 
 	<xsd:simpleType name="doubleOrSubstitutionType">
 		<xsd:restriction base="xsd:string">
-			<xsd:pattern value="\d+(.\d)?"></xsd:pattern>
+			<xsd:pattern value="[-+]?([0-9]*\.[0-9]+|[0-9]+)"></xsd:pattern>
 			<xsd:pattern value="(\$\{)\w+(\})"></xsd:pattern>
 		</xsd:restriction>
 	</xsd:simpleType>
@@ -455,6 +484,13 @@
     	</xsd:sequence>
     </xsd:group>
 
+    <xsd:group name="pTimeValueProcessorGroup">
+    	<xsd:sequence>
+    		<xsd:element name="format" maxOccurs="1" minOccurs="0" type="xsd:string">
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:group>
+
     <xsd:group name="pStatusCheckAlarmProcessorGroup">
     	<xsd:sequence>
             <xsd:element name="maskOn" type="maskType"></xsd:element>
@@ -487,6 +523,14 @@
         </xsd:sequence>
     </xsd:group>
     
+    <xsd:group name="pSystemProcessWatchdogProcessorGroup">
+    	<xsd:sequence>
+    		<xsd:element name="valueHit" type="alarmType" minOccurs="1" maxOccurs="1"></xsd:element>
+    		<xsd:element name="valueMiss" type="alarmType" minOccurs="1" maxOccurs="1"></xsd:element>
+    		<xsd:element name="processPattern" type="xsd:string" minOccurs="1" maxOccurs="1"></xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+
     <xsd:group name="pHostPingAlarmProcessorGroup">
     	<xsd:sequence>
     		<xsd:element name="host" type="xsd:string"></xsd:element>
@@ -504,10 +548,16 @@
     		<xsd:element name="latching" type="xsd:boolean"
     			maxOccurs="1" minOccurs="0">
     		</xsd:element>
-    		<xsd:element name="enabled" type="xsd:boolean" maxOccurs="1"
-    			minOccurs="0">
+    		<xsd:element name="enabled" maxOccurs="1" minOccurs="0">
+    			<xsd:simpleType>
+    				<xsd:restriction base="xsd:string">
+    					<xsd:pattern
+    						value="(true|false|True|False|0|1|($\{\w+\}))">
+    					</xsd:pattern>
+    				</xsd:restriction>
+    			</xsd:simpleType>
     		</xsd:element>
-    		<xsd:element name="display" maxOccurs="1" minOccurs="0">
+    		<xsd:element name="guidance" maxOccurs="1" minOccurs="0">
     			<xsd:complexType>
     				<xsd:sequence>
     					<xsd:element name="title" type="xsd:string"
@@ -519,7 +569,7 @@
     				</xsd:sequence>
     			</xsd:complexType>
     		</xsd:element>
-    		<xsd:element name="guidance" maxOccurs="1" minOccurs="0">
+    		<xsd:element name="display" maxOccurs="1" minOccurs="0">
     			<xsd:complexType>
     				<xsd:sequence>
     					<xsd:element name="title" type="xsd:string"
@@ -567,24 +617,89 @@
 		</xsd:sequence>
     </xsd:group>
     
-    <xsd:group name="aFeedbackLoopApplicationGroup">
+    <xsd:group name="aCyclingMasterApplicationGroup">
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			Application tag may containe additional subtags in
+    			addition to here described mandatory tags. They can be
+    			read by application at config phase.
+    		</xsd:documentation>
+    	</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="delegates" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+		</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="aOrbitServerApplicationGroup">
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			Orbit Server tags.
+    		</xsd:documentation>
+    	</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="bpms" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:element name="archive_url" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:element name="bpm_positions" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:element name="reference_orbit" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:element name="mem_orbit" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+		</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="aFeedbackLoopCommonGroup">
     	<xsd:sequence>
     		<xsd:element name="enabled" type="xsd:boolean"></xsd:element>
-    		<xsd:element name="outputPV" type="xsd:string"></xsd:element>
-    		<xsd:element name="inputPV" type="xsd:string"></xsd:element>
-    		<xsd:element name="outputPoints" type="xsd:string"></xsd:element>
-    		<xsd:element name="breakPoints" type="xsd:string"></xsd:element>
-    		<xsd:element name="precision" type="xsd:double">
-    			<xsd:annotation>
-    				<xsd:documentation>
-    					Precision and reactionWindow defines check for
-    					InSync flag. If value difference between
-    					outputPV and calculated output is less then
-    					precision, then feedback loop is InSync (=true).
-    				</xsd:documentation>
-    			</xsd:annotation>
+            <xsd:element name="inputPV" type="xsd:string"></xsd:element>
+            <xsd:element name="outputPV" type="xsd:string"></xsd:element>
+    	</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="aFeedbackLoopApplicationGroup">
+    	<xsd:sequence>
+    		<xsd:element name="differential" type="xsd:boolean"
+    			minOccurs="0" maxOccurs="1">
     		</xsd:element>
-    		<xsd:element name="reactionWindow" type="xsd:int"></xsd:element>
+            <xsd:element name="breakPoints" type="xsd:string"></xsd:element>
+            <xsd:element name="outputPoints" type="xsd:string"></xsd:element>
+            <xsd:element name="inputPrecision" type="xsd:double"></xsd:element>
+            <xsd:element name="outputPrecision" type="xsd:double"></xsd:element>
+            <xsd:element name="reactionWindow" type="xsd:int"></xsd:element>
+    	</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="aSteppingFeedbackLoopApplicationGroup">
+    	<xsd:sequence>
+            <xsd:element name="triggerPV" type="xsd:string"></xsd:element>
+            <xsd:element name="inputPrecision" type="xsd:double"></xsd:element>
+            <xsd:element name="outputPrecision" type="xsd:double"></xsd:element>
+            <xsd:element name="triggerPrecision" type="xsd:double"></xsd:element>
+            <xsd:element name="outputMin" type="xsd:double"></xsd:element>
+            <xsd:element name="outputMax" type="xsd:double"></xsd:element>
+            <xsd:element name="triggerWindow" type="xsd:double"></xsd:element>
+            <xsd:element name="minStep" type="xsd:double"></xsd:element>
+            <xsd:element name="maxStep" type="xsd:double"></xsd:element>
+            <xsd:element name="minStepInputDelta" type="xsd:double"></xsd:element>
+            <xsd:element name="maxStepInputDelta" type="xsd:double"></xsd:element>
+            <xsd:element name="controlDelay" type="xsd:int"></xsd:element>
+    	</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="aProcessManagerDescriptionGroup">
+    	<xsd:sequence>
+            <xsd:element name="description" type="xsd:string" maxOccurs="1" minOccurs="0"></xsd:element>
+    	</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="aProcessManagerApplicationGroup">
+    	<xsd:sequence>
+            <xsd:element name="process_pattern" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="start" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            <xsd:element name="stop" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:group>
+
+    <xsd:group name="aProcessManagerGroupApplicationGroup">
+    	<xsd:sequence>
+            <xsd:element name="managers" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
     	</xsd:sequence>
     </xsd:group>
 
@@ -621,7 +736,14 @@
 	        	<xsd:choice maxOccurs="unbounded" minOccurs="1">
 	        		<xsd:group ref="aDeviceGroupGroup"></xsd:group>
 	        		<xsd:group ref="aCyclingApplicationGroup"></xsd:group>
+	        		<xsd:group ref="aCyclingMasterApplicationGroup"></xsd:group>
+	        		<xsd:group ref="aOrbitServerApplicationGroup"></xsd:group>
+	        		<xsd:group ref="aFeedbackLoopCommonGroup"></xsd:group>
 	        		<xsd:group ref="aFeedbackLoopApplicationGroup"></xsd:group>
+	        		<xsd:group ref="aSteppingFeedbackLoopApplicationGroup"></xsd:group>
+	        		<xsd:group ref="aProcessManagerDescriptionGroup"></xsd:group>
+	        		<xsd:group ref="aProcessManagerApplicationGroup"></xsd:group>
+	        		<xsd:group ref="aProcessManagerGroupApplicationGroup"></xsd:group>
 	        	</xsd:choice>
 	        </xsd:sequence>
 	        <xsd:attribute name="instance" use="required">
@@ -635,7 +757,12 @@
 	        		<xsd:restriction base="xsd:string">
 	        			<xsd:enumeration value="com.kriznar.csshell.epics.server.application.devicegroup.DeviceGroupApplication"></xsd:enumeration>
    						<xsd:enumeration value="com.kriznar.csshell.epics.server.application.cycling.CyclingApplication"></xsd:enumeration>
+   						<xsd:enumeration value="com.kriznar.csshell.epics.server.application.cycling.CyclingApplicationMaster"></xsd:enumeration>
    						<xsd:enumeration value="com.kriznar.csshell.epics.server.application.FeedbackLoopApplication"></xsd:enumeration>
+   						<xsd:enumeration value="com.kriznar.csshell.epics.server.application.SteppingFeedbackLoopApplication"></xsd:enumeration>
+   						<xsd:enumeration value="com.kriznar.csshell.epics.server.application.orbitserver.OrbitServerApplication"></xsd:enumeration>
+   						<xsd:enumeration value="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerApplication"></xsd:enumeration>
+   						<xsd:enumeration value="com.kriznar.csshell.epics.server.application.processmanager.ProcessManagerGroupApplication"></xsd:enumeration>
 	        		</xsd:restriction>
 	        	</xsd:simpleType>
 	        </xsd:attribute>
@@ -684,9 +811,25 @@
 	    	</xsd:choice>
 	    </xsd:complexType>
 	</xsd:element>
-    
-    <xsd:simpleType name="maskType">
-    	<xsd:restriction base="xsd:string"><xsd:pattern value="0b[01]+"></xsd:pattern></xsd:restriction>
-    </xsd:simpleType>
 
+	<xsd:simpleType name="maskType">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="0b[01]+"></xsd:pattern>
+			<xsd:pattern value="0b[01]+($\{\w+\}){0,1}"></xsd:pattern>
+			<xsd:pattern value="(\$\{)\w+(\})"></xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:complexType name="levelAlarmType">
+		<xsd:sequence>
+			<xsd:element name="limit" type="doubleOrSubstitutionType" maxOccurs="1"
+				minOccurs="1">
+			</xsd:element>
+			<xsd:element name="severity" type="severityType"
+				maxOccurs="1" minOccurs="0">
+			</xsd:element>
+			<xsd:element name="status" type="statusType" maxOccurs="1" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
 </xsd:schema>
